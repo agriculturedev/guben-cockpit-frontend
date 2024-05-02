@@ -50,19 +50,3 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
 
-
-  redeploy:
-    runs-on: ubuntu-20.04
-    needs: [build-and-push-image]
-    permissions:
-      contents: read
-      packages: write
-    steps:
-      - name: Call Webhooks for Portainer redeployment
-        run: |
-          IFS=',' read -ra WEBHOOKS <<< "${WEBHOOK_URLS}"
-          for webhook in "${WEBHOOKS[@]}"; do
-          curl -X POST "$webhook"
-          done
-        env:
-          WEBHOOK_URLS: ${{ secrets.WEBHOOK_URL }}
