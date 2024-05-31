@@ -27,7 +27,7 @@ export default defineComponent({
 <style scoped lang="scss">
 .projects {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   gap: 10px;
   padding: 10px;
 }

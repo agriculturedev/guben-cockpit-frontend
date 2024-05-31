@@ -5,7 +5,10 @@
         <template #content>
           <div v-if="projectPage">
             <h2>{{ projectPage.attributes.Title }}</h2>
-            <div>{{ projectPage.attributes.Description }}</div>
+            <VueMarkdown
+              :source="projectPage.attributes.Description"
+              :options="markdownOptions"
+            />
             <projectsList :projects="projectPage.attributes.projects.data" />
             <DynamicRenderer
               :components="projectPage.attributes.InfoFromAdmin"
@@ -43,15 +46,20 @@ import { fetchProjectsPage } from "@/api/ApiService";
 import { ProjectView } from "@/types/ProjectView";
 import ErrorComponent from "@/components/ErrorComponent.vue";
 import DynamicRenderer from "@/components/DynamicRenderer.vue";
+import VueMarkdown from "vue-markdown-render";
 
 export default defineComponent({
   name: "ProjectView",
-  components: { ErrorComponent, projectsList, DynamicRenderer },
+  components: { ErrorComponent, projectsList, DynamicRenderer, VueMarkdown },
   data() {
     return {
       projectPage: null as ProjectView | null,
       loading: true,
       error: null,
+      markdownOptions: {
+        underline: true,
+        italic: true,
+      },
     };
   },
   async mounted() {

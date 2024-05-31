@@ -1,9 +1,10 @@
 // apiService.ts
-const BASE_URL = "http://localhost:1337/api";
+export const BASE_URL = "https://admin.guben.elie.de";
+const BASE_API_URL = `${BASE_URL}/api`;
 
 async function fetchProjects() {
   try {
-    const response = await fetch(`${BASE_URL}/projekte`);
+    const response = await fetch(`${BASE_API_URL}/projekte`);
     if (!response.ok) {
       throw new Error("Network response was not ok");
     }
@@ -16,7 +17,9 @@ async function fetchProjects() {
 
 async function fetchProjectsPage() {
   try {
-    const response = await fetch(`${BASE_URL}/project-view?populate=*`);
+    const response = await fetch(
+      `${BASE_API_URL}/project-view?populate=InfoFromAdmin,projects,projects.Image`
+    );
     if (!response.ok) {
       throw new Error("Network response was not ok");
     }

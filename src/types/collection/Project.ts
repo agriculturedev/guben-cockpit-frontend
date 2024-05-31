@@ -1,3 +1,5 @@
+import { Image } from "../generic/Image";
+
 export type Project = {
   id: number;
   attributes: attributes;
@@ -10,4 +12,5 @@ type attributes = {
   locale: string;
   publishedAt: Date;
   updatedAt: Date;
+  Image?: Image;
 };
