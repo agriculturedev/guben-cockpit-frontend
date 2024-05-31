@@ -1,26 +1,20 @@
 <template>
   <div class="project">
-    <h3>{{ project.attributes.Titel }}</h3>
-    <p>{{ project.attributes.Beschreibung }}</p>
+    <h3>{{ project.attributes.Title }}</h3>
+    <p>{{ project.attributes.Description }}</p>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, PropType } from "vue";
-
-interface IProjekt {
-  attributes: {
-    Titel: string;
-    Beschreibung: string;
-  };
-}
+import { Project } from "@/types/collection/Project";
 
 export default defineComponent({
   name: "ProjectCard",
   props: {
     project: {
       // provide more specific type to `Object`
-      type: Object as PropType<IProjekt>,
+      type: Object as PropType<Project>,
       required: true,
     },
   },

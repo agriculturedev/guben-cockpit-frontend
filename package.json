@@ -9,6 +9,9 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@caisy/rich-text-react-renderer": "^0.7.3",
+    "@caisy/rich-text-vue-renderer": "^0.3.0",
+    "contentful-rich-text-vue-renderer": "^3.1.0",
     "core-js": "^3.8.3",
     "vue": "^3.2.13",
     "vue-router": "^4.0.3",
