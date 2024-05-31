@@ -1,13 +1,11 @@
 <template>
-  <div>
-    <ul>
-      <component
-        :is="getComponentByType(component.__component)"
-        v-for="component in components"
-        :key="component.id"
-        :values="component"
-      />
-    </ul>
+  <div class="dynamic-renderer">
+    <component
+      :is="getComponentByType(component.__component)"
+      v-for="component in components"
+      :key="component.id"
+      :values="component"
+    />
   </div>
 </template>
 
@@ -32,4 +30,10 @@ export default defineComponent({
 
 <style scoped>
 /* Add any styles specific to the error component here */
+.dynamic-renderer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
 </style>
