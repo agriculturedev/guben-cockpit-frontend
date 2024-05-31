@@ -1,13 +1,12 @@
 <template>
   <div>
     <ul>
-      <li v-for="component in components" :key="component.id">
-        <component
-          :is="getComponentByType(component.__component)"
-          v-bind="component"
-          :values="component"
-        ></component>
-      </li>
+      <component
+        :is="getComponentByType(component.__component)"
+        v-for="component in components"
+        :key="component.id"
+        :values="component"
+      />
     </ul>
   </div>
 </template>
