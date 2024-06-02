@@ -1,8 +1,19 @@
 <template>
   <div class="event">
+    <div class="event-header">header</div>
     <div class="event-content">
-      <h3>{{ event.attributes.Title }}</h3>
-      <p>{{ event.attributes.Description }}</p>
+      <div class="title-content">
+        <div class="title-content-title bold">Titel</div>
+        <div class="title-content-content bold">
+          {{ event.attributes.Name }}
+        </div>
+      </div>
+      <div class="title-content">
+        <div class="title-content-title">Beschreibung</div>
+        <div class="title-content-content title-content-content__max-height">
+          {{ event.attributes.Description }}
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -31,11 +42,50 @@ export default defineComponent({
   border: 1px solid #ccc;
   border-radius: 4px;
   width: 100%;
-  max-width: 500px;
   background-color: white;
+  flex: 1;
+
+  .event-header {
+    padding: 20px;
+  }
 
   .event-content {
-    padding: 10px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    font-size: 12px;
+
+    .title-content {
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+
+      .title-content-title {
+        display: flex;
+        justify-content: flex-end;
+        align-items: flex-start;
+      }
+
+      .title-content-content {
+        grid-column: span 2;
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+
+        &__max-height {
+          overflow: hidden;
+          text-overflow: ellipsis;
+          max-height: 100px;
+        }
+      }
+
+      .bold {
+        font-weight: bold;
+      }
+    }
   }
 }
 </style>

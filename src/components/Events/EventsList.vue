@@ -1,5 +1,5 @@
 <template>
-  <div class="projects">
+  <div class="events">
     <eventCard v-for="event in events" :key="event.id" :event="event" />
   </div>
 </template>
@@ -21,9 +21,10 @@ export default defineComponent({
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-.projects {
-  display: flex;
-  flex-direction: row;
+.events {
+  display: grid;
+
+  grid-template-columns: repeat(3, 1fr);
   gap: 10px;
   padding: 10px;
 }

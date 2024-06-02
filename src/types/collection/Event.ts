@@ -4,7 +4,7 @@ export type Event = {
 };
 
 type attributes = {
-  Title: string;
+  Name: string;
   Description: string;
   Date: Date;
   locale: string;
