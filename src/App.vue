@@ -36,6 +36,7 @@
 
     .max-width {
       max-width: 1200px;
+      width: 100%;
     }
   }
 }
