@@ -39,6 +39,7 @@ export default defineComponent({
   border-radius: 4px;
   width: 100%;
   max-width: 500px;
+  background-color: white;
 
   .project-content {
     padding: 10px;

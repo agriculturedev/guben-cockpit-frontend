@@ -1,5 +1,5 @@
 <template>
-  <div class="map-container">
+  <div class="map-container full-width">
     <iframe
       class="map-iframe"
       src="https://guben.elie.de/"
@@ -20,7 +20,6 @@
     overflow: hidden;
     border: none;
     height: calc(100% - 80px);
-    padding-top: 80px;
     width: 100%;
   }
 }

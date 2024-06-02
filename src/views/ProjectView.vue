@@ -1,16 +1,22 @@
 <template>
-  <div class="project-container">
-    <div class="max-width">
+  <div class="project-container max-width">
+    <div class="">
       <ErrorComponent :loading="loading" :error="error">
         <template #content>
           <div v-if="projectPage">
-            <h2>{{ projectPage.attributes.Title }}</h2>
+            <h2 class="title">{{ projectPage.attributes.Title }}</h2>
+
             <VueMarkdown
               :source="projectPage.attributes.Description"
               :options="markdownOptions"
+              class="description"
             />
-            <projectsList :projects="projectPage.attributes.projects.data" />
+            <projectsList
+              class="project-list"
+              :projects="projectPage.attributes.projects.data"
+            />
             <DynamicRenderer
+              class="info-from-admin"
               :components="projectPage.attributes.InfoFromAdmin"
             />
           </div>
@@ -26,16 +32,25 @@
 
 <style>
 .project-container {
-  padding-top: 80px;
   display: flex;
   justify-content: center;
   align-items: center;
-}
 
-.max-width {
-  max-width: 1200px;
-  width: 100%;
-  padding: 0 20px;
+  .title {
+    padding-top: 50px;
+  }
+
+  .description {
+    padding-top: 20px;
+  }
+
+  .project-list {
+    padding-top: 30px;
+  }
+
+  .info-from-admin {
+    padding-top: 30px;
+  }
 }
 </style>
 

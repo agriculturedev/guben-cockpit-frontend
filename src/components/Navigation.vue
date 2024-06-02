@@ -2,16 +2,24 @@
   <div class="nav-container">
     <ul>
       <li>
-        <router-link to="/">Home</router-link>
+        <router-link to="/" class="nav-item">
+          <HomeIcon class="icon" />
+        </router-link>
       </li>
       <li>
-        <router-link to="/projects">Projekte</router-link>
+        <router-link to="/projects" class="nav-item">
+          <Squares2X2Icon class="icon" />
+        </router-link>
       </li>
       <li>
-        <router-link to="/map">Map</router-link>
+        <router-link to="/map" class="nav-item">
+          <MapIcon class="icon" />
+        </router-link>
       </li>
       <li>
-        <router-link to="/">Veranstaltungen</router-link>
+        <router-link to="/" class="nav-item">
+          <ListBulletIcon class="icon" />
+        </router-link>
       </li>
     </ul>
   </div>
@@ -22,6 +30,13 @@ import { defineComponent } from "vue";
 import homeView from "@/views/HomeView.vue";
 import mapView from "@/views/MapView.vue";
 import projectView from "@/views/ProjectView.vue";
+
+import {
+  MapIcon,
+  ListBulletIcon,
+  Squares2X2Icon,
+  HomeIcon,
+} from "@heroicons/vue/24/outline";
 
 export default defineComponent({
   name: "NavComponent",
@@ -36,6 +51,12 @@ export default defineComponent({
       return projectView;
     },
   },
+  components: {
+    MapIcon,
+    ListBulletIcon,
+    Squares2X2Icon,
+    HomeIcon,
+  },
   props: {
     msg: String,
   },
@@ -48,11 +69,13 @@ export default defineComponent({
   width: 100vw;
   height: 80px;
   background: white;
-  position: absolute;
+  position: sticky;
+  top: 0;
   z-index: 10;
-  box-shadow: #00000011 0 0 10px;
+  box-shadow: #00000033 0 0 10px;
   padding: 0;
   margin: 0;
+  border-radius: 0 0 10px 10px;
 
   ul {
     list-style: none;
@@ -65,14 +88,27 @@ export default defineComponent({
     li {
       a {
         height: 100%;
-        padding: 18px 12px;
+        padding: 12px 12px;
         display: flex;
         align-items: center;
         justify-content: center;
-        transition: background-color 0.2s ease-in-out;
+        transition: all 0.2s ease-in-out;
+        width: auto;
+        border-radius: 10px;
+
+        .icon {
+          height: 20px;
+          width: 20px;
+
+          color: #0f3263;
+        }
 
         &:hover {
-          background-color: #f0f0f0;
+          background-color: #0f3263;
+
+          .icon {
+            color: white;
+          }
         }
       }
     }
