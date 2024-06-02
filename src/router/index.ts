@@ -2,6 +2,7 @@ import { createRouter, createWebHashHistory, RouteRecordRaw } from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import MapView from "@/views/MapView.vue";
 import ProjectView from "@/views/ProjectView.vue";
+import EventView from "@/views/EventView.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -18,6 +19,11 @@ const routes: Array<RouteRecordRaw> = [
     path: "/map",
     name: "map",
     component: MapView,
+  },
+  {
+    path: "/events",
+    name: "events",
+    component: EventView,
   },
 ];
 

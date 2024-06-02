@@ -17,7 +17,7 @@
         </router-link>
       </li>
       <li>
-        <router-link to="/" class="nav-item">
+        <router-link to="/events" class="nav-item">
           <ListBulletIcon class="icon" />
         </router-link>
       </li>
