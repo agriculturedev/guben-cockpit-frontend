@@ -1,5 +1,10 @@
 <template>
   <div class="nav-container">
+    <div id="logo">
+      <router-link to="/" class="nav-item">
+        <img src="@/assets/smart-city-guben-logo.png" alt="logo" />
+      </router-link>
+    </div>
     <ul>
       <li>
         <router-link to="/" class="nav-item">
@@ -22,6 +27,7 @@
         </router-link>
       </li>
     </ul>
+    <div></div>
   </div>
 </template>
 
@@ -76,6 +82,29 @@ export default defineComponent({
   padding: 0;
   margin: 0;
   border-radius: 0 0 10px 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+
+  #logo {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    height: 100%;
+    margin-left: 20px;
+
+    a {
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      img {
+        height: 70%;
+      }
+    }
+  }
 
   ul {
     list-style: none;
@@ -84,6 +113,7 @@ export default defineComponent({
     height: 100%;
     align-items: center;
     justify-content: center;
+    justify-self: center;
 
     li {
       a {
