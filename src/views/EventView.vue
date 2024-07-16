@@ -4,18 +4,20 @@
       <template #content>
         <div v-if="eventPage">
           <h2 class="title">{{ eventPage.attributes.Title }}</h2>
-
           <VueMarkdown
             :source="eventPage.attributes.Description"
             :options="markdownOptions"
             class="description"
           />
+          <filterGroup :attributes="filterOn" @update="updateFilters" />
+          {{ filter }}
           <div class="event-list">
             <eventList :events="events" />
           </div>
         </div>
         <div v-else>No event page available.</div>
       </template>
+
       <template #error>
         <div>There was an error loading the event data.</div>
       </template>
@@ -23,7 +25,7 @@
   </div>
 </template>
 
-<style>
+<style scoped lang="scss">
 .events-container {
   display: flex;
   justify-content: center;
@@ -50,15 +52,23 @@ import { fetchEventsPage } from "@/api/ApiService";
 import ErrorComponent from "@/components/ErrorComponent.vue";
 import VueMarkdown from "vue-markdown-render";
 import eventList from "@/components/Events/EventsList.vue";
+import filterGroup from "@/components/Generic/FilterGroup.vue";
+import { FilteredAttribute } from "@/types/generic/FilteredAttribute";
+import { Event } from "@/types/collection/Event";
 
 export default defineComponent({
   name: "EventsView",
-  components: { ErrorComponent, VueMarkdown, eventList },
+  components: { ErrorComponent, VueMarkdown, eventList, filterGroup },
   data() {
     return {
       eventPage: null as EventView | null,
       loading: true,
       error: null,
+      filterOn: [
+        { id: "Search", type: "string" },
+        { id: "locale", type: "string", values: ["en", "es", "nl"] },
+      ] as FilteredAttribute[],
+      filter: null as any,
       markdownOptions: {
         underline: true,
         italic: true,
@@ -67,7 +77,28 @@ export default defineComponent({
   },
   computed: {
     events(): Event[] {
-      return this.$store.state.events;
+      return this.$store.state.events.filter((event: Event) => {
+        if (!this.filter) {
+          return true;
+        }
+        return Object.keys(this.filter).every((key) => {
+          if (key === "Search") {
+            return event.attributes.Name.toLowerCase().includes(
+              this.filter[key].toLowerCase()
+            );
+          } else
+            return (
+              event.attributes[key as keyof typeof event.attributes] as string
+            )
+              .toLowerCase()
+              .includes(this.filter[key].toLowerCase());
+        });
+      });
+    },
+  },
+  methods: {
+    updateFilters(filter: any) {
+      this.filter = filter;
     },
   },
   async mounted() {
