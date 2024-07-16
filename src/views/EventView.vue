@@ -10,7 +10,6 @@
             :options="markdownOptions"
             class="description"
           />
-
           <div class="event-list">
             <eventList :events="events" />
           </div>
@@ -47,7 +46,7 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { EventView } from "@/types/EventView";
-import { fetchEventsPage, fetchEvents } from "@/api/ApiService";
+import { fetchEventsPage } from "@/api/ApiService";
 import ErrorComponent from "@/components/ErrorComponent.vue";
 import VueMarkdown from "vue-markdown-render";
 import eventList from "@/components/Events/EventsList.vue";
@@ -58,7 +57,6 @@ export default defineComponent({
   data() {
     return {
       eventPage: null as EventView | null,
-      events: [] as Event[],
       loading: true,
       error: null,
       markdownOptions: {
@@ -67,10 +65,15 @@ export default defineComponent({
       },
     };
   },
+  computed: {
+    events(): Event[] {
+      return this.$store.state.events;
+    },
+  },
   async mounted() {
     try {
+      this.$store.dispatch("fetchEvents");
       this.eventPage = (await fetchEventsPage()) as EventView;
-      this.events = (await fetchEvents()) as Event[];
     } catch (error) {
       this.error = error as any;
     } finally {
