@@ -1,16 +1,22 @@
 <template>
-  <div class="main">
-    <span>Label temporary</span>
-    <ul class="dropdown">
-      <li v-for="(value, index) in attribute.values" :key="value">
+  <div @click="toggleDropdown" class="main" v-click-outside="closeDropdown">
+    <span>{{ attribute.label ? attribute.label : attribute.id }}</span>
+    <ul v-show="dropdownActive" class="dropdown">
+      <li
+        @click="setSelection($event, value)"
+        v-for="(value, index) in attribute.values"
+        :key="value"
+      >
         <input
-          type="radio"
+          :type="attribute.multiselect ? 'checkbox' : 'radio'"
           :name="attribute.id"
           :id="`${value}-${index}`"
           :value="value"
-          @input="testing($event, value)"
         />
-        <label :class="{ active: test === value }" :for="`${value}-${index}`">
+        <label
+          :class="{ active: currentActive.includes(value) }"
+          :for="`${value}-${index}`"
+        >
           {{ value }}</label
         >
       </li>
@@ -27,18 +33,47 @@ export default defineComponent({
   },
   data() {
     return {
-      test: null,
+      currentActive: [],
+      dropdownActive: false,
     };
   },
   methods: {
-    testing(e, val) {
+    setSelection(e, val) {
       e.preventDefault();
-      if (this.test === val) {
-        this.test = null;
-        e.checked = false;
+
+      if (this.attribute.multiselect) {
+        if (this.currentActive.includes(val)) {
+          this.currentActive = this.currentActive.filter((v) => v !== val);
+          e.currentTarget.querySelector("input").checked = false;
+        } else {
+          this.currentActive.push(val);
+          e.currentTarget.querySelector("input").checked = true;
+        }
       } else {
-        this.test = val;
+        document
+          .querySelectorAll(`input[name='${this.attribute.id}']`)
+          .forEach((el) => {
+            el.checked = false;
+          });
+        if (this.currentActive.includes(val)) {
+          this.currentActive = [];
+          e.currentTarget.querySelector("input").checked = false;
+        } else {
+          this.currentActive = [val];
+          e.currentTarget.querySelector("input").checked = true;
+        }
       }
+
+      this.$emit("update", this.currentActive);
+    },
+    toggleDropdown(e) {
+      if (e.currentTarget.querySelector("ul").contains(e.target)) {
+        return;
+      }
+      this.dropdownActive = !this.dropdownActive;
+    },
+    closeDropdown() {
+      this.dropdownActive = false;
     },
   },
 });
@@ -53,6 +88,12 @@ export default defineComponent({
   background-color: white;
   font-size: 1rem;
   cursor: pointer;
+
+  span {
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
+  }
 
   ul {
     position: absolute;

@@ -16,6 +16,7 @@
           </div>
         </div>
         <div v-else>No event page available.</div>
+        <span>{{ events }}</span>
       </template>
 
       <template #error>
@@ -64,10 +65,6 @@ export default defineComponent({
       eventPage: null as EventView | null,
       loading: true,
       error: null,
-      filterOn: [
-        { id: "Search", type: "string" },
-        { id: "locale", type: "string", values: ["en", "es", "nl"] },
-      ] as FilteredAttribute[],
       filter: null as any,
       markdownOptions: {
         underline: true,
@@ -76,22 +73,48 @@ export default defineComponent({
     };
   },
   computed: {
+    filterOn(): FilteredAttribute[] {
+      return [
+        { id: "search", label: "Search", type: "string" },
+        {
+          id: "locale",
+          label: "Locale",
+          type: "string",
+          multiselect: false,
+          values: [
+            ...new Set(
+              this.$store.state.events.map(
+                (item: Event) => item.attributes.locale
+              )
+            ),
+            "nl",
+            "en",
+          ],
+        },
+      ];
+    },
     events(): Event[] {
       return this.$store.state.events.filter((event: Event) => {
         if (!this.filter) {
           return true;
         }
         return Object.keys(this.filter).every((key) => {
-          if (key === "Search") {
-            return event.attributes.Name.toLowerCase().includes(
-              this.filter[key].toLowerCase()
-            );
-          } else
-            return (
-              event.attributes[key as keyof typeof event.attributes] as string
-            )
-              .toLowerCase()
-              .includes(this.filter[key].toLowerCase());
+          switch (key) {
+            case "search":
+              return event.attributes.Name.toLowerCase().includes(
+                this.filter[key].toLowerCase()
+              );
+            case "locale":
+              return this.filter[key].length != 0
+                ? this.filter[key].includes(event.attributes.locale)
+                : true;
+            default:
+              return (
+                event.attributes[key as keyof typeof event.attributes] as string
+              )
+                .toLowerCase()
+                .includes(this.filter[key].toLowerCase());
+          }
         });
       });
     },

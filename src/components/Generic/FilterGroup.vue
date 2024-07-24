@@ -5,8 +5,11 @@
         v-if="attribute.type === 'string' && !attribute.values"
         @update="(n: string) => updateFilter(attribute.id.toString(), n)"
       />
-      <Selector v-if="attribute.values" :attribute="attribute" />
-      {{ filtered }}
+      <Selector
+        v-if="attribute.values"
+        :attribute="attribute"
+        @update="(n: string) => updateFilter(attribute.id.toString(), n)"
+      />
     </div>
   </div>
 </template>
@@ -34,6 +37,9 @@ export default defineComponent({
   methods: {
     updateFilter(id: string, value: string) {
       this.filtered[id] = value;
+      if (!value) {
+        delete this.filtered[id];
+      }
       this.$emit("update", this.filtered);
     },
   },
