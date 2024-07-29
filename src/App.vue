@@ -21,7 +21,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #e9f2fe;
+  background-color: #e9ecef;
 
   .content {
     flex: 1;

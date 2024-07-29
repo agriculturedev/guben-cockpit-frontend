@@ -10,6 +10,11 @@
         :attribute="attribute"
         @update="(n: string) => updateFilter(attribute.id.toString(), n)"
       />
+      <DateSelector
+        v-if="attribute.type === 'date'"
+        :attribute="attribute"
+        @date-update="(n: string) => updateFilter(attribute.id.toString(), n)"
+      />
     </div>
   </div>
 </template>
@@ -19,6 +24,7 @@ import { defineComponent, PropType } from "vue";
 import { FilteredAttribute } from "@/types/generic/FilteredAttribute";
 import Search from "@/components/Filters/Search.vue";
 import Selector from "@/components/Filters/Selector.vue";
+import DateSelector from "@/components/Filters/DateSelector.vue";
 export default defineComponent({
   name: "FilterGroup",
   data() {
@@ -33,14 +39,15 @@ export default defineComponent({
   components: {
     Search,
     Selector,
+    DateSelector,
   },
   methods: {
-    updateFilter(id: string, value: string) {
+    updateFilter(id: string, value: any) {
       this.filtered[id] = value;
       if (!value) {
         delete this.filtered[id];
       }
-      this.$emit("update", this.filtered);
+      this.$emit("filter-updates", this.filtered);
     },
   },
 });

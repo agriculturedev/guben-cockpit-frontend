@@ -33,7 +33,7 @@ export default defineComponent({
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #89a5d3;
+  background-color: rgba(218, 18, 26, 0.7);
 
   ul {
     list-style: none;

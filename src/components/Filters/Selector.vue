@@ -1,24 +1,31 @@
 <template>
-  <div @click="toggleDropdown" class="main" v-click-outside="closeDropdown">
+  <div
+    @click="toggleDropdown"
+    :class="dropdownActive ? `main active` : `main`"
+    v-click-outside="closeDropdown"
+  >
     <span>{{ attribute.label ? attribute.label : attribute.id }}</span>
     <ul v-show="dropdownActive" class="dropdown">
       <li
         @click="setSelection($event, value)"
         v-for="(value, index) in attribute.values"
-        :key="value"
+        :key="value.id"
       >
         <input
           :type="attribute.multiselect ? 'checkbox' : 'radio'"
           :name="attribute.id"
-          :id="`${value}-${index}`"
-          :value="value"
+          :id="`${value.id}-${index}`"
+          :value="value.id"
         />
         <label
-          :class="{ active: currentActive.includes(value) }"
-          :for="`${value}-${index}`"
+          :class="{ active: currentActive.includes(value.id) }"
+          :for="`${value.id}-${index}`"
         >
-          {{ value }}</label
+          {{ value.label !== undefined ? value.label : value.id }}</label
         >
+      </li>
+      <li>
+        <slot />
       </li>
     </ul>
   </div>
@@ -27,7 +34,7 @@
 <script>
 import { defineComponent } from "vue";
 export default defineComponent({
-  name: "SearchComponent",
+  name: "SelectorComponent",
   props: {
     attribute: [],
   },
@@ -40,6 +47,8 @@ export default defineComponent({
   methods: {
     setSelection(e, val) {
       e.preventDefault();
+
+      val = val.id;
 
       if (this.attribute.multiselect) {
         if (this.currentActive.includes(val)) {
@@ -81,13 +90,21 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .main {
+  padding: 0.375rem 0.75rem;
+  line-height: 1.5;
   position: relative;
-  padding: 5px 25px 5px 10px;
-  border: 1px solid #ccc;
+  border: 2px solid #ccc;
   border-radius: 4px;
   background-color: white;
   font-size: 1rem;
   cursor: pointer;
+
+  &.active {
+    outline-width: thick;
+    outline-style: solid;
+    outline-color: #cd142036;
+    border-color: #cd1420;
+  }
 
   span {
     -webkit-user-select: none; /* Safari */
@@ -97,13 +114,16 @@ export default defineComponent({
 
   ul {
     position: absolute;
-    right: 0;
+    left: 0;
     top: calc(100% + 10px);
     background-color: inherit;
     border: inherit;
     padding: 5px 0;
     min-width: 100%;
+    border-radius: 4px;
     box-sizing: border-box;
+    box-shadow: 0 5px 12px -4px #ccc;
+    border: none;
     li {
       list-style: none;
       width: 100%;

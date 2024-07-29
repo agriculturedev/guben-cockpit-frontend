@@ -30,10 +30,12 @@ async function fetchProjectsPage() {
   }
 }
 
-export async function fetchEvents() {
+export async function fetchEvents(filters = "") {
+  console.log(filters);
+
   try {
     const response = await fetch(
-      `${BASE_API_URL}/events?populate=target_groups`
+      `${BASE_API_URL}/events?populate=target_groups${filters}`
     );
     if (!response.ok) {
       throw new Error("Network response was not ok");

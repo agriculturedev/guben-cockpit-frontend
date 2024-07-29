@@ -2,7 +2,7 @@
   <div class="nav-container">
     <div id="logo">
       <router-link to="/" class="nav-item">
-        <img src="@/assets/smart-city-guben-logo.png" alt="logo" />
+        <img src="@/assets/stadt-guben-wappen.jpg" alt="logo" />
       </router-link>
     </div>
     <ul>
@@ -130,11 +130,11 @@ export default defineComponent({
           height: 20px;
           width: 20px;
 
-          color: #0f3263;
+          color: #cd1421;
         }
 
         &:hover {
-          background-color: #0f3263;
+          background-color: #cd1421;
 
           .icon {
             color: white;
