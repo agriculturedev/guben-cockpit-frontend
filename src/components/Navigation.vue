@@ -8,11 +8,6 @@
     <ul>
       <li>
         <router-link to="/" class="nav-item">
-          <HomeIcon class="icon" />
-        </router-link>
-      </li>
-      <li>
-        <router-link to="/projects" class="nav-item">
           <Squares2X2Icon class="icon" />
         </router-link>
       </li>
@@ -61,7 +56,7 @@ export default defineComponent({
     MapIcon,
     ListBulletIcon,
     Squares2X2Icon,
-    HomeIcon,
+    // HomeIcon,
   },
   props: {
     msg: String,
