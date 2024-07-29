@@ -4,9 +4,10 @@ export type Event = {
 };
 
 type attributes = {
-  Name: string;
-  Description: string;
-  Date: Date;
+  title: string;
+  description: string;
+  startDate: Date;
+  endDate: Date;
   locale: string;
   createdAt: Date;
   publishedAt: Date;
