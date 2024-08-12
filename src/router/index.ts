@@ -5,13 +5,13 @@ import ProjectView from "@/views/ProjectView.vue";
 import EventView from "@/views/EventView.vue";
 
 const routes: Array<RouteRecordRaw> = [
-  // {
-  //   path: "/",
-  //   name: "home",
-  //   component: HomeView,
-  // },
   {
     path: "/",
+    name: "home",
+    component: HomeView,
+  },
+  {
+    path: "/projects",
     name: "projects",
     component: ProjectView,
   },
