@@ -97,54 +97,20 @@ export default defineComponent({
     filterOn(): FilteredAttribute[] {
       const lang = [
         ...new Set(
-          this.$store.state.events.map((item: Event) => item.attributes.locale)
+          this.$store.state.events.events.map(
+            (item: Event) => item.attributes.locale
+          )
         ),
         "nl",
         "en",
       ].map((item) => ({ id: item }));
       return [
         { id: "datum", label: "Datum", type: "date" },
-        // {
-        //   id: "locale",
-        //   label: "Gebietsschema",
-        //   type: "string",
-        //   multiselect: false,
-        //   values: lang,
-        // },
         { id: "search", label: "Search", type: "string" },
       ];
     },
     events(): Event[] {
-      // return this.$store.state.events.filter((event: Event) => {
-      //   if (!this.filter) {
-      //     return true;
-      //   }
-      //   return Object.keys(this.filter).every((key) => {
-      //     switch (key) {
-      //       case "search":
-      //         return event.attributes.title
-      //           .toLowerCase()
-      //           .includes(this.filter[key].toLowerCase());
-      //       case "locale":
-      //       case "test":
-      //         return this.filter[key].length != 0
-      //           ? this.filter[key].includes(event.attributes.locale)
-      //           : true;
-      //       case "datum":
-      //         return (
-      //           event.attributes.Date >= this.filter[key].start &&
-      //           event.attributes.Date <= this.filter[key].end
-      //         );
-      //       default:
-      //         return (
-      //           event.attributes[key as keyof typeof event.attributes] as string
-      //         )
-      //           .toLowerCase()
-      //           .includes(this.filter[key].toLowerCase());
-      //     }
-      //   });
-      // });
-      return this.$store.state.events;
+      return this.$store.state.events.events;
     },
   },
   methods: {
@@ -156,7 +122,6 @@ export default defineComponent({
 
       this.filterTimeout = setTimeout(() => {
         Object.keys(filter).forEach((key) => {
-          console.log(key);
           if (!filter[key]) {
             return;
           }
@@ -165,15 +130,6 @@ export default defineComponent({
             case "search":
               filters += `&filters[$and][0][title][$containsi]=${filter[key]}`;
               break;
-            // return event.attributes.title
-            //   .toLowerCase()
-            //   .includes(this.filter[key].toLowerCase());
-            // case "locale":
-            // case "test":
-            //   filters += `&filter[locale][$in]=${this.filter[key].join(",")}`;
-            //   return this.filter[key].length != 0
-            //     ? this.filter[key].includes(event.attributes.locale)
-            //     : true;
             case "datum": {
               if (filter[key].start === 0 || filter[key].end === 0) {
                 delete this.filters[key];
@@ -182,7 +138,6 @@ export default defineComponent({
               const start = new Date(filter[key].start),
                 end = new Date(filter[key].end);
 
-              // Check if start and end are the same day
               if (
                 start.getFullYear() === end.getFullYear() &&
                 start.getMonth() === end.getMonth() &&
@@ -211,21 +166,11 @@ export default defineComponent({
               ).toISOString()}`;
               break;
             }
-
-            // return (
-            //   event.attributes.Date >= this.filter[key].start &&
-            //   event.attributes.Date <= this.filter[key].end
-            // );
             default:
               break;
-            // return (
-            //   event.attributes[key as keyof typeof event.attributes] as string
-            // )
-            //   .toLowerCase()
-            //   .includes(this.filter[key].toLowerCase());
           }
         });
-        this.$store.dispatch("updateFilters", {
+        this.$store.dispatch("events/updateFilters", {
           from: "events",
           filters: filters,
         });
@@ -234,13 +179,26 @@ export default defineComponent({
   },
   async mounted() {
     try {
-      this.$store.dispatch("fetchEvents");
+      await this.$store.dispatch(
+        "events/fetchEvents",
+        this.$store.state.pagination.pagination
+      );
       this.eventPage = (await fetchEventsPage()) as EventView;
     } catch (error) {
       this.error = error as any;
     } finally {
       this.loading = false;
     }
+  },
+  watch: {
+    "$store.state.pagination.pagination": {
+      async handler(newPagination, oldPagination) {
+        if (JSON.stringify(newPagination) !== JSON.stringify(oldPagination)) {
+          await this.$store.dispatch("events/fetchEvents", newPagination);
+        }
+      },
+      deep: true,
+    },
   },
 });
 </script>

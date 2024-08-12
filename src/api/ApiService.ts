@@ -1,8 +1,13 @@
 // apiService.ts
+import { Pagination } from "@/types/generic/Pagination";
+import { PagedResult } from "@/types/generic/PagedResult";
+
+import { Event } from "@/types/collection/Event";
+
 export const BASE_URL = "https://admin.guben.elie.de";
 const BASE_API_URL = `${BASE_URL}/api`;
 
-async function fetchProjects() {
+export async function fetchProjects() {
   try {
     const response = await fetch(`${BASE_API_URL}/projekte`);
     if (!response.ok) {
@@ -15,7 +20,7 @@ async function fetchProjects() {
   }
 }
 
-async function fetchProjectsPage() {
+export async function fetchProjectsPage() {
   try {
     const response = await fetch(
       `${BASE_API_URL}/project-view?populate=InfoFromAdmin,projects,projects.Image`
@@ -30,17 +35,18 @@ async function fetchProjectsPage() {
   }
 }
 
-export async function fetchEvents(filters = "") {
-  console.log(filters);
-
+export async function fetchEvents(
+  filters = "",
+  pagination: Pagination
+): Promise<PagedResult<Event>> {
   try {
     const response = await fetch(
-      `${BASE_API_URL}/events?populate=target_groups${filters}`
+      `${BASE_API_URL}/events?populate=target_groups${filters}&pagination[page]=${pagination.page}&pagination[pageSize]=${pagination.pageSize}`
     );
     if (!response.ok) {
       throw new Error("Network response was not ok");
     }
-    return (await response.json()).data;
+    return await response.json();
   } catch (error) {
     console.error("Error fetching events:", error);
     throw error; // re-throwing the error is important for the component to handle it
@@ -59,5 +65,3 @@ export async function fetchEventsPage() {
     throw error; // re-throwing the error is important for the component to handle it
   }
 }
-
-export { fetchProjects, fetchProjectsPage };
