@@ -2,7 +2,7 @@
 export const BASE_URL = "https://admin.guben.elie.de";
 const BASE_API_URL = `${BASE_URL}/api`;
 
-async function fetchProjects() {
+export async function fetchProjects() {
   try {
     const response = await fetch(`${BASE_API_URL}/projekte`);
     if (!response.ok) {
@@ -15,7 +15,7 @@ async function fetchProjects() {
   }
 }
 
-async function fetchProjectsPage() {
+export async function fetchProjectsPage() {
   try {
     const response = await fetch(
       `${BASE_API_URL}/project-view?populate=InfoFromAdmin,projects,projects.Image`
@@ -31,8 +31,6 @@ async function fetchProjectsPage() {
 }
 
 export async function fetchEvents(filters = "") {
-  console.log(filters);
-
   try {
     const response = await fetch(
       `${BASE_API_URL}/events?populate=target_groups${filters}`
@@ -59,5 +57,3 @@ export async function fetchEventsPage() {
     throw error; // re-throwing the error is important for the component to handle it
   }
 }
-
-export { fetchProjects, fetchProjectsPage };
