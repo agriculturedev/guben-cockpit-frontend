@@ -16,6 +16,18 @@
           {{ event.attributes.description }}
         </div>
       </div>
+      <div class="date-content">
+        <div class="date-content-title">Start Datum</div>
+        <div class="date-content-content title-content-content__max-height">
+          {{ startDate }}
+        </div>
+      </div>
+      <div class="date-content">
+        <div class="date-content-title">End Datum</div>
+        <div class="date-content-content title-content-content__max-height">
+          {{ endDate }}
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -32,6 +44,14 @@ export default defineComponent({
       // provide more specific type to `Object`
       type: Object as PropType<Event>,
       required: true,
+    },
+  },
+  computed: {
+    startDate(): string {
+      return new Date(this.event.attributes.startDate).formatDateTime(false);
+    },
+    endDate(): string {
+      return new Date(this.event.attributes.startDate).formatDateTime(false);
     },
   },
 });
@@ -60,7 +80,8 @@ export default defineComponent({
     font-size: 12px;
 
     .title-content,
-    .description-content {
+    .description-content,
+    .date-content {
       width: 100%;
       display: grid;
       grid-template-columns: repeat(3, 1fr);
