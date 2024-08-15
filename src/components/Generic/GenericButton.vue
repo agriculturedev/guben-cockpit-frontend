@@ -1,28 +1,18 @@
 <template>
   <div class="button">
-    <a :href="values.URL" :target="values.newTab ? '_blank' : ''">{{
-      values.Text
+    <a :href="props.URL" :target="props.newTab ? '_blank' : ''">{{
+      props.Text
     }}</a>
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, PropType } from "vue";
-import { GenericButton } from "@/types/generic/Button";
+<script lang="ts" setup>
+import { defineProps } from "vue";
+import { ButtonProps } from "@/types/generic/Button";
 
-export default defineComponent({
-  name: "GenericButton",
-  props: {
-    values: {
-      // provide more specific type to `Object`
-      type: Object as PropType<GenericButton>,
-      required: true,
-    },
-  },
-});
+const props = defineProps<ButtonProps>();
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 .button {
   a {
