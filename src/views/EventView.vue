@@ -1,9 +1,9 @@
 <template>
-  <div class="events-container max-width">
+  <PageContainer>
     <ErrorComponent :loading="loading" :error="error">
       <template #content>
         <div v-if="eventPage">
-          <h2 class="title">{{ eventPage.attributes.Title }}</h2>
+          <PageTitle :title="eventPage.attributes.Title" />
           <VueMarkdown
             :source="eventPage.attributes.Description"
             :options="markdownOptions"
@@ -24,9 +24,7 @@
                 : `Titel: ${filter}`
             }}</span
           >
-          <div class="event-list">
-            <eventList :events="events" />
-          </div>
+          <eventList :events="events" />
         </div>
         <div v-else>No event page available.</div>
       </template>
@@ -35,34 +33,19 @@
         <div>There was an error loading the event data.</div>
       </template>
     </ErrorComponent>
-  </div>
+  </PageContainer>
 </template>
 
 <style scoped lang="scss">
-.events-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.description {
+  padding-top: 1rem;
+}
 
-  .title {
-    padding-top: 50px;
-    color: #cd1421;
-  }
-
-  .description {
-    padding-top: 20px;
-  }
-
-  .event-list {
-    padding-top: 30px;
-  }
-
-  .filter {
-    padding: 5px 10px;
-    background-color: #ccc;
-    border-radius: 4px;
-    margin: 0 5px;
-  }
+.filter {
+  padding: 5px 10px;
+  background-color: #ccc;
+  border-radius: 4px;
+  margin: 0 5px;
 }
 </style>
 
@@ -76,10 +59,19 @@ import eventList from "@/components/Events/EventsList.vue";
 import filterGroup from "@/components/Generic/FilterGroup.vue";
 import { FilteredAttribute } from "@/types/generic/FilteredAttribute";
 import { Event } from "@/types/collection/Event";
+import PageTitle from "@/components/Typography/PageTitle.vue";
+import PageContainer from "@/components/PageContainer.vue";
 
 export default defineComponent({
   name: "EventsView",
-  components: { ErrorComponent, VueMarkdown, eventList, filterGroup },
+  components: {
+    PageContainer,
+    PageTitle,
+    ErrorComponent,
+    VueMarkdown,
+    eventList,
+    filterGroup,
+  },
   data() {
     return {
       eventPage: null as EventView | null,

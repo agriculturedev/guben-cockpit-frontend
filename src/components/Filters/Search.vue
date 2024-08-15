@@ -17,7 +17,6 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 input {
-  width: 100%;
   padding: 0.375rem 0.75rem;
   line-height: 1.5;
   border: 1px solid #ccc;
