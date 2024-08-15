@@ -3,10 +3,10 @@ import { Project } from "./collection/Project";
 
 export type ProjectView = {
   id: number;
-  attributes: attributes;
+  attributes: Attributes;
 };
 
-type attributes = {
+type Attributes = {
   Description: string;
   Title: string;
   InfoFromAdmin: GenericButton[];

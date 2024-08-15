@@ -35,6 +35,21 @@ export async function fetchProjectsPage() {
   }
 }
 
+export async function fetchHomePage() {
+  try {
+    const response = await fetch(
+      `${BASE_API_URL}/home-view?populate=tabs,tabs.cards,tabs.cards.button`
+    );
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+    return (await response.json()).data;
+  } catch (error) {
+    console.error("Error fetching home page:", error);
+    throw error; // re-throwing the error is important for the component to handle it
+  }
+}
+
 export async function fetchEvents(
   filters = "",
   pagination: Pagination

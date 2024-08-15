@@ -2,42 +2,17 @@
   <div class="wrapper">
     <TabsComponent v-slot="scope">
       <TabComponent
-        title="Stadtentwicklung und Teilhabe"
-        tabindex="0"
+        v-for="(tab, index) in tabs"
+        :key="tab?.id"
+        :title="tab?.attributes.title"
+        :tabindex="index"
         :activeTab="scope?.activeTab"
       >
         <template #map> <MapComponent /> </template>
-        <template #info> <InformationComponent /> </template>
-        ></TabComponent
-      >
-      <TabComponent
-        title="Nachhaltige Mobilität"
-        tabindex="1"
-        :activeTab="scope?.activeTab"
-        ><template #map> <MapComponent /> </template>
-        <template #info> <InformationComponent /> </template
-      ></TabComponent>
-      <TabComponent
-        title="Kllima und Umwelt"
-        tabindex="2"
-        :activeTab="scope?.activeTab"
-        ><template #map> <MapComponent /> </template>
-        <template #info> <InformationComponent /> </template
-      ></TabComponent>
-      <TabComponent
-        title="Energie und Wirtschaft"
-        tabindex="3"
-        :activeTab="scope?.activeTab"
-        ><template #map> <MapComponent /> </template>
-        <template #info> <InformationComponent /> </template
-      ></TabComponent>
-      <TabComponent
-        title="Gesundheit und Kultur"
-        tabindex="4"
-        :activeTab="scope?.activeTab"
-        ><template #map> <MapComponent /> </template>
-        <template #info> <InformationComponent /> </template
-      ></TabComponent>
+        <template #info>
+          <InformationComponent :cards="tab?.attributes?.cards" />
+        </template>
+      </TabComponent>
     </TabsComponent>
   </div>
 </template>
@@ -56,6 +31,9 @@ export default defineComponent({
     MapComponent,
     TabComponent,
     TabsComponent,
+  },
+  props: {
+    tabs: Array,
   },
 });
 </script>

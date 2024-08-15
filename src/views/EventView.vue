@@ -116,65 +116,67 @@ export default defineComponent({
   methods: {
     updateFilters(filter: any) {
       this.filters = filter;
-      let filters = "";
-
       clearTimeout(this.filterTimeout);
 
       this.filterTimeout = setTimeout(() => {
-        Object.keys(filter).forEach((key) => {
-          if (!filter[key]) {
-            return;
-          }
-
-          switch (key) {
-            case "search":
-              filters += `&filters[$and][0][title][$containsi]=${filter[key]}`;
-              break;
-            case "datum": {
-              if (filter[key].start === 0 || filter[key].end === 0) {
-                delete this.filters[key];
-                return;
-              }
-              const start = new Date(filter[key].start),
-                end = new Date(filter[key].end);
-
-              if (
-                start.getFullYear() === end.getFullYear() &&
-                start.getMonth() === end.getMonth() &&
-                start.getDate() === end.getDate()
-              ) {
-                filters += `&filters[$and][0][$and][1][startDate][$lte]=${new Date(
-                  filter[key].start
-                ).toISOString()}&filters[$and][0][$and][1][endDate][$gte]=${new Date(
-                  filter[key].end
-                ).toISOString()}`;
-                break;
-              }
-
-              filters += `&filters[$and][0][$or][0][$and][0][startDate][$gte]=${new Date(
-                filter[key].start
-              ).toISOString()}&filters[$and][0][$or][0][$and][1][startDate][$lte]=${new Date(
-                filter[key].end
-              ).toISOString()}&filters[$and][0][$or][1][$and][0][endDate][$gte]=${new Date(
-                filter[key].start
-              ).toISOString()}&filters[$and][0][$or][1][$and][1][endDate][$lte]=${new Date(
-                filter[key].end
-              ).toISOString()}&filters[$and][0][$or][2][$and][0][startDate][$lte]=${new Date(
-                filter[key].start
-              ).toISOString()}&filters[$and][0][$or][2][$and][1][endDate][$gte]=${new Date(
-                filter[key].end
-              ).toISOString()}`;
-              break;
-            }
-            default:
-              break;
-          }
-        });
-        this.$store.dispatch("events/updateFilters", {
-          from: "events",
-          filters: filters,
-        });
+        const filters = this.buildFilterQuery(filter);
+        this.dispatchFilterUpdate(filters);
       }, 1000);
+    },
+    buildFilterQuery(filter: any): string {
+      let filters = "";
+
+      Object.keys(filter).forEach((key) => {
+        const value = filter[key];
+        if (!value) return;
+
+        switch (key) {
+          case "search":
+            filters += this.buildSearchFilter(value);
+            break;
+          case "datum":
+            filters += this.buildDatumFilter(value);
+            break;
+          default:
+            break;
+        }
+      });
+
+      return filters;
+    },
+    buildSearchFilter(searchValue: string): string {
+      return `&filters[$and][0][title][$contains]=${searchValue}`;
+    },
+    buildDatumFilter(datumValue: any): string {
+      if (datumValue.start === 0 || datumValue.end === 0) {
+        delete this.filters.datum;
+        return "";
+      }
+
+      const start = new Date(datumValue.start);
+      const end = new Date(datumValue.end);
+
+      if (
+        start.getFullYear() === end.getFullYear() &&
+        start.getMonth() === end.getMonth() &&
+        start.getDate() === end.getDate()
+      ) {
+        return `&filters[$and][0][$and][1][startDate][$lte]=${start.toISOString()}
+        &filters[$and][0][$and][1][endDate][$gte]=${end.toISOString()}`;
+      }
+
+      return `&filters[$and][0][$or][0][$and][0][startDate][$gte]=${start.toISOString()}
+      &filters[$and][0][$or][0][$and][1][startDate][$lte]=${end.toISOString()}
+      &filters[$and][0][$or][1][$and][0][endDate][$gte]=${start.toISOString()}
+      &filters[$and][0][$or][1][$and][1][endDate][$lte]=${end.toISOString()}
+      &filters[$and][0][$or][2][$and][0][startDate][$lte]=${start.toISOString()}
+      &filters[$and][0][$or][2][$and][1][endDate][$gte]=${end.toISOString()}`;
+    },
+    dispatchFilterUpdate(filters: string) {
+      this.$store.dispatch("events/updateFilters", {
+        from: "events",
+        filters: filters,
+      });
     },
   },
   async mounted() {
