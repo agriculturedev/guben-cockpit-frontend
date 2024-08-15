@@ -1,33 +1,57 @@
 <template>
-  <div class="wrapper">
-    <div class="row">
-      <InfoCardVariant1 />
-      <LineChart />
-    </div>
-    <div class="row">
-      <BarChart />
-      <InfoCardVariant2 />
-    </div>
+  <div class="grid-container">
+    <InfoCardVariant1
+      v-for="card in cards"
+      v-bind:key="card?.title"
+      class="grid-item"
+      :values="{
+        imgSrc: card?.imgSrc,
+        imgAlt: card?.imgAlt,
+        title: card?.title,
+        description: card?.description,
+        button: card?.button,
+      }"
+    />
+    <!--      <LineChart />-->
+    <!--    <BarChart />-->
+    <!--    <InfoCardVariant2 />-->
   </div>
 </template>
 
 <style lang="scss" scoped>
-.wrapper {
-  display: flex;
-  flex-direction: column;
+.grid-container {
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(250px, 1fr)
+  ); /* Responsive column size */
   gap: 1rem;
 }
-
-.row {
-  display: flex;
-  gap: 1rem;
-  width: 100%;
+.grid-item {
+  :nth-child(2) {
+    grid-row: span 2; /* Spans 2 rows */
+  }
 }
 </style>
 
-<script setup lang="ts">
-import InfoCardVariant1 from "@/components/Home/InfoCardVariant1.vue";
-import LineChart from "@/components/Charts/LineChart.vue";
-import InfoCardVariant2 from "@/components/Home/InfoCardVariant2.vue";
-import BarChart from "@/components/Charts/BarChart.vue";
+<script lang="ts">
+import { defineComponent } from "vue";
+import InfoCardVariant1 from "@/components/Home/CardComponents/InfoCardVariant1.vue";
+
+export default defineComponent({
+  name: "InformationComponent",
+  components: {
+    InfoCardVariant1,
+  },
+  props: {
+    cards: {
+      type: Array,
+      required: true,
+    },
+  },
+  mounted() {
+    console.log(this?.cards);
+  },
+});
 </script>

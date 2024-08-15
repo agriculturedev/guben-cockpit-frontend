@@ -2,12 +2,12 @@
   <div class="tabs">
     <ul class="tabs__header">
       <li
-        v-for="tab in tabs"
-        :key="tab.props.tabindex"
-        @click="setActiveTab(tab.props.tabindex)"
-        :class="{ tab__selected: tab.props.tabindex == activeTab }"
+        v-for="(tab, index) in tabs"
+        :key="index"
+        @click="setActiveTab(index)"
+        :class="{ tab__selected: index === activeTab }"
       >
-        {{ tab.props.title }}
+        {{ tab?.props?.title }}
       </li>
     </ul>
 
@@ -17,22 +17,15 @@
 
 <script lang="js">
 
-
 export default {
-  props: {
-    mode: {
-      type: String,
-      default: "light",
-    },
-  },
   data() {
     return {
       tabs: [],
-      activeTab: "0",
+      activeTab: 0,
     };
   },
   mounted() {
-    this.tabs = this.$slots.default();
+    this.tabs = this.$slots.default()[0]?.children; // not sure why i need to use the [0]?.children here, something to do with slots?
   },
   methods: {
     setActiveTab(tabindex) {
@@ -46,8 +39,7 @@ export default {
 ul.tabs__header {
   display: block;
   list-style: none;
-  margin: 0 0 0 20px;
-  padding: 0;
+  padding: 0 0 0 20px;
 }
 
 ul.tabs__header > li {
@@ -63,19 +55,6 @@ ul.tabs__header > li.tab__selected {
   font-weight: bold;
   border-radius: 10px 10px 0 0;
   border-bottom: 8px solid transparent;
-}
-
-.tab {
-  display: inline-block;
-  color: black;
-  padding: 1rem;
-  width: 100%;
-  border-radius: 10px;
-  min-height: 400px;
-}
-
-.tabs .tab {
-  background-color: #fff;
 }
 
 .tabs li {

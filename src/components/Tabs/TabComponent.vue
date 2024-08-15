@@ -17,27 +17,29 @@ export default {
       default: "Tab",
     },
     activeTab: {
-      type: String,
-      default: "1",
+      type: Number,
+      default: 0,
     },
     tabindex: {
-      type: String,
+      type: Number,
     },
   },
 
   computed: {
     isActive() {
-      return this.$props.activeTab.toString() === this.$props.tabindex;
+      return this.$props.activeTab === this.$props?.tabindex;
     },
-  }
+  },
 };
 </script>
 
 <style lang="scss" scoped>
 .tab {
   display: flex;
-  width: 100%;
   height: 100%;
+  border-radius: 10px;
+  background-color: #fff;
+  padding: 1rem;
   flex-direction: row;
   gap: 2rem;
 }
@@ -48,6 +50,6 @@ export default {
 }
 
 .info-slot {
-  width: 50%;
+  width: auto;
 }
 </style>
