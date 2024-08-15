@@ -80,7 +80,6 @@ export default defineComponent({
   async mounted() {
     try {
       this.projectPage = (await fetchProjectsPage()) as ProjectView;
-      console.log(this.projectPage?.attributes.projects.data);
     } catch (error) {
       this.error = error as any;
     } finally {
