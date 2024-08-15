@@ -1,9 +1,9 @@
 export type EventView = {
   id: number;
-  attributes: attributes;
+  attributes: Attributes;
 };
 
-type attributes = {
+type Attributes = {
   Description: string;
   Title: string;
 };
