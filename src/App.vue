@@ -35,7 +35,7 @@
     }
 
     .max-width {
-      max-width: 1500px;
+      max-width: 90vw;
       width: 100%;
     }
   }
