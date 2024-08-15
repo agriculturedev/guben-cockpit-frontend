@@ -62,7 +62,7 @@ export default defineComponent({
   flex-wrap: wrap;
 
   & > div {
-    margin: 10px 0;
+    padding: 10px 0;
   }
 }
 </style>
