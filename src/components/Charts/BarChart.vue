@@ -22,6 +22,7 @@ export default {
   },
   data() {
     return {
+      title: "placeholger",
       series: [
         {
           name: "series-1",
