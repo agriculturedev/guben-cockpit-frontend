@@ -50,7 +50,7 @@
     }
 
     .max-width {
-      max-width: 90vw;
+      max-width: clamp(200px, 90vw, 2000px);
       width: 100%;
     }
   }
