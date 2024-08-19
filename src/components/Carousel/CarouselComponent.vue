@@ -11,11 +11,10 @@
       <div class="inner" ref="inner" :style="innerStyles">
         <div
           class="card"
-          v-for="card in cards.slice(0, this.renderLimit)"
-          :key="card.id"
+          v-for="(card, index) in cards.slice(0, this.renderLimit)"
+          :key="index"
         >
-          <!-- {{card }} -->
-          <projectCard :key="card.id" :project="card" />
+          <projectCard :project="card" />
         </div>
       </div>
     </div>
@@ -43,7 +42,6 @@ export default {
     return {
       renderLimit: 10, // without this large arrays are slower and use more memory
       cards: [],
-      // cards: Array.from({ length: 100 }, (_, i) => i + 1),
       innerStyles: {},
       step: "",
       transitioning: false,
@@ -54,22 +52,30 @@ export default {
   },
 
   mounted() {
-    this.cards = this.projects;
+    if (this.projects.length <= 4) {
+      this.cards = this.projects.concat(this.projects);
+    } else {
+      this.cards = this.projects;
+    }
     this.setStep();
-    this.resetTranslate();
+    window.addEventListener("resize", this.setStep);
   },
 
   methods: {
     setStep() {
-      const cardWidth = this.$refs.inner.children[0]?.scrollWidth;
-      if (cardWidth === undefined) {
-        console.log("cardWidth is undefined");
-        const innerWidth = this.$refs.inner.scrollWidth;
-        const totalCards = this.cards.slice(0, this.renderLimit).length;
-        this.step = `${innerWidth / totalCards}px`;
-        return;
-      }
-      this.step = `${cardWidth}px`;
+      this.$nextTick(() => {
+        const card = this.$refs.inner.children[0];
+        const gap = parseFloat(getComputedStyle(this.$refs.inner).gap) || 0;
+        const cardWidth = card?.scrollWidth;
+        if (cardWidth === undefined) {
+          const innerWidth = this.$refs.inner.scrollWidth;
+          const totalCards = this.cards.slice(0, this.renderLimit).length;
+          this.step = `${innerWidth / totalCards}px`;
+          return;
+        }
+        this.step = `${cardWidth + gap}px`;
+        this.resetTranslate();
+      });
     },
 
     next() {
@@ -161,6 +167,7 @@ export default {
       .card {
         display: inline-flex;
         width: 25vw;
+        min-width: min-content;
         align-items: center;
         justify-content: center;
       }
