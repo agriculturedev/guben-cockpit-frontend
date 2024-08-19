@@ -6,11 +6,19 @@ export type Project = {
 };
 
 type attributes = {
-  Title: string;
-  Description: string;
+  title: string;
+  description: string;
+  image?: Image;
+  contact: Contact;
   createdAt: Date;
   locale: string;
   publishedAt: Date;
   updatedAt: Date;
-  Image?: Image;
+};
+
+export type Contact = {
+  address: string;
+  email: string;
+  phone: string;
+  fax: string;
 };

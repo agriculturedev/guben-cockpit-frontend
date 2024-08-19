@@ -10,10 +10,11 @@
             :options="markdownOptions"
             class="description"
           />
-          <projectsList
+          <CarouselComponent
             class="project-list"
             :projects="projectPage.attributes.projects.data"
           />
+
           <DynamicRenderer
             class="info-from-admin"
             :components="projectPage.attributes.InfoFromAdmin"
@@ -28,7 +29,7 @@
   </PageContainer>
 </template>
 
-<style>
+<style scoped lang="scss">
 .description {
   padding-top: 20px;
 }
@@ -44,7 +45,6 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import projectsList from "@/components/Projects/ProjectsList.vue";
 import { fetchProjectsPage } from "@/api/ApiService";
 import { ProjectView } from "@/types/ProjectView";
 import ErrorComponent from "@/components/ErrorComponent.vue";
@@ -52,14 +52,15 @@ import DynamicRenderer from "@/components/DynamicRenderer.vue";
 import VueMarkdown from "vue-markdown-render";
 import PageTitle from "@/components/Typography/PageTitle.vue";
 import PageContainer from "@/components/PageContainer.vue";
+import CarouselComponent from "@/components/Carousel/CarouselComponent.vue";
 
 export default defineComponent({
   name: "ProjectView",
   components: {
+    CarouselComponent,
     PageContainer,
     PageTitle,
     ErrorComponent,
-    projectsList,
     DynamicRenderer,
     VueMarkdown,
   },

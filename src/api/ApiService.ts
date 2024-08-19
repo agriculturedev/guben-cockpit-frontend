@@ -23,7 +23,7 @@ export async function fetchProjects() {
 export async function fetchProjectsPage() {
   try {
     const response = await fetch(
-      `${BASE_API_URL}/project-view?populate=InfoFromAdmin,projects,projects.Image`
+      `${BASE_API_URL}/project-view?populate=InfoFromAdmin,projects,projects.image,projects.contact`
     );
     if (!response.ok) {
       throw new Error("Network response was not ok");
