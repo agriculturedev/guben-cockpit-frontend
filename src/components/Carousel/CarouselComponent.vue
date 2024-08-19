@@ -1,6 +1,12 @@
 <template>
   <div class="carousel-container">
-    <button @click="prev">prev</button>
+    <button class="carousel-button" @click="prev">
+      <img
+        class="carousel-button-svg"
+        src="@/assets/ArrowLeft.svg?.data"
+        alt="arrowLeft"
+      />
+    </button>
     <div class="carousel">
       <div class="inner" ref="inner" :style="innerStyles">
         <div
@@ -13,7 +19,13 @@
         </div>
       </div>
     </div>
-    <button @click="next">next</button>
+    <button class="carousel-button" @click="next">
+      <img
+        class="carousel-button-svg"
+        src="@/assets/ArrowRight.svg?.data"
+        alt="arrowRight"
+      />
+    </button>
   </div>
 </template>
 
@@ -128,24 +140,31 @@ export default {
   align-items: center;
   justify-content: center;
   gap: 1rem;
-}
+  height: 40vh;
 
-.carousel {
-  width: 100%;
-  overflow: hidden;
-}
+  .carousel-button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+  }
 
-.inner {
-  transition: transform 0.5s;
-  white-space: nowrap;
-  display: inline-flex;
-  gap: 2rem;
-}
+  .carousel {
+    width: 100%;
+    overflow: hidden;
 
-.card {
-  display: inline-flex;
-  width: 25vw;
-  align-items: center;
-  justify-content: center;
+    .inner {
+      transition: transform 0.5s;
+      white-space: nowrap;
+      display: inline-flex;
+      gap: 2rem;
+
+      .card {
+        display: inline-flex;
+        width: 25vw;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+  }
 }
 </style>
