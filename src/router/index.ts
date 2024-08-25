@@ -3,6 +3,7 @@ import HomeView from "../views/HomeView.vue";
 import MapView from "@/views/MapView.vue";
 import ProjectView from "@/views/ProjectView.vue";
 import EventView from "@/views/EventView.vue";
+import ComponentView from "@/views/ComponentView.vue";
 
 const routes: Array<RouteRecordRaw> = [
   // {
@@ -24,6 +25,11 @@ const routes: Array<RouteRecordRaw> = [
     path: "/events",
     name: "events",
     component: EventView,
+  },
+  {
+    path: "/components",
+    name: "components",
+    component: ComponentView,
   },
 ];
 
