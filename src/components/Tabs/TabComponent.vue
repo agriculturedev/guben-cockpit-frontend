@@ -41,15 +41,23 @@ export default {
   background-color: #fff;
   padding: 1rem;
   flex-direction: row;
-  gap: 2rem;
-}
+  gap: 1rem;
+  position: relative;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 
-.map-slot {
-  width: 50%;
-  height: clamp(10vh, 50vh, 70vh);
-}
+  .map-slot {
+    width: 50%;
+    height: calc(100% - 1px);
+    display: flex;
+    flex-direction: column;
 
-.info-slot {
-  width: auto;
+    .map {
+      height: 100%;
+      width: 100%;
+    }
+  }
+  .info-slot {
+    width: auto;
+  }
 }
 </style>

@@ -11,7 +11,7 @@
       </li>
     </ul>
 
-    <slot v-bind:activeTab="$data?.activeTab"> </slot>
+    <slot v-bind:activeTab="$data?.activeTab" class="tabs__body"> </slot>
   </div>
 </template>
 
@@ -57,6 +57,10 @@ ul.tabs__header > li.tab__selected {
   border-bottom: 8px solid transparent;
 }
 
+.tabs {
+  height: 100%;
+}
+
 .tabs li {
   background-color: #ddd;
   color: #aaa;
@@ -65,5 +69,9 @@ ul.tabs__header > li.tab__selected {
 .tabs li.tab__selected {
   background-color: #fff;
   color: #505050;
+}
+
+.tabs__body {
+  height: 100%;
 }
 </style>
