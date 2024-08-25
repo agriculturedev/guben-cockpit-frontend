@@ -8,6 +8,11 @@
     <ul>
       <li>
         <router-link to="/" class="nav-item">
+          <HomeIcon class="icon" />
+        </router-link>
+      </li>
+      <li>
+        <router-link to="/projects" class="nav-item">
           <Squares2X2Icon class="icon" />
         </router-link>
       </li>
@@ -56,7 +61,7 @@ export default defineComponent({
     MapIcon,
     ListBulletIcon,
     Squares2X2Icon,
-    // HomeIcon,
+    HomeIcon,
   },
   props: {
     msg: String,
@@ -67,7 +72,7 @@ export default defineComponent({
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 .nav-container {
-  width: 100vw;
+  width: 100%;
   height: 80px;
   background: white;
   position: sticky;

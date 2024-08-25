@@ -6,13 +6,13 @@ import EventView from "@/views/EventView.vue";
 import ComponentView from "@/views/ComponentView.vue";
 
 const routes: Array<RouteRecordRaw> = [
-  // {
-  //   path: "/",
-  //   name: "home",
-  //   component: HomeView,
-  // },
   {
     path: "/",
+    name: "home",
+    component: HomeView,
+  },
+  {
+    path: "/projects",
     name: "projects",
     component: ProjectView,
   },
