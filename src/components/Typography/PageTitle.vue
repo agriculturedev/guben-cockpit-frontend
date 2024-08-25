@@ -13,7 +13,7 @@ export default defineComponent({
 });
 </script>
 
-<style>
+<style scoped>
 .title {
   padding-top: 1.5rem;
   color: #cd1421;
