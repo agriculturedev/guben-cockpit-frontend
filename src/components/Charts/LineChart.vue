@@ -22,7 +22,7 @@ export default {
   },
   data() {
     return {
-      title: "Demografie Guben",
+      title: "some line chart",
       series: [
         {
           name: "series-1",
@@ -61,3 +61,9 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.title {
+  padding: 1rem;
+}
+</style>

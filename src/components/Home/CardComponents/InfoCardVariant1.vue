@@ -22,7 +22,7 @@
 <style scoped lang="scss">
 .card-content {
   gap: 1rem;
-  padding: 1rem;
+  padding: 0.5rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
