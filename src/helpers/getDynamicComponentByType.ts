@@ -1,6 +1,6 @@
 import { DynamicTypes } from "@/enums/DynamicTypes";
 
-import GenericButton from "@/components/Generic/Button.vue";
+import GenericButton from "@/components/Generic/GenericButton.vue";
 
 export const getComponentByType = (type: string) => {
   switch (type) {
