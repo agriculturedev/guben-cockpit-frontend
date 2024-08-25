@@ -24,7 +24,7 @@
 import { defineComponent } from "vue";
 
 import VueMarkdown from "vue-markdown-render";
-import GenericButton from "@/components/Generic/Button.vue";
+import GenericButton from "@/components/Generic/GenericButton.vue";
 import CardComponent from "@/components/Generic/Card.vue";
 
 export default defineComponent({
