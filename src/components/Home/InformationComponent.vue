@@ -12,8 +12,8 @@
         button: card?.button,
       }"
     />
-    <component :is="randomChartComponent1" />
-    <component :is="randomChartComponent2" />
+    <!--    <component :is="randomChartComponent1" />-->
+    <!--    <component :is="randomChartComponent2" />-->
   </div>
 </template>
 
@@ -25,7 +25,7 @@
     auto-fill,
     minmax(250px, 1fr)
   ); /* Responsive column size */
-  gap: 1rem;
+  gap: 0.5rem;
 }
 .grid-item {
   :nth-child(2) {
@@ -37,16 +37,16 @@
 <script lang="ts">
 import { DefineComponent, defineComponent } from "vue";
 import InfoCardVariant1 from "@/components/Home/CardComponents/InfoCardVariant1.vue";
-import LineChart from "@/components/Charts/LineChart.vue";
-import BarChart from "@/components/Charts/BarChart.vue";
-import PieChart from "@/components/Charts/PieChart.vue";
+// import LineChart from "@/components/Charts/LineChart.vue";
+// import BarChartV2 from "@/components/Charts/BarChartV2.vue";
+// import PieChart from "@/components/Charts/PieChart.vue";
 
 export default defineComponent({
   name: "InformationComponent",
   components: {
-    PieChart,
-    BarChart,
-    LineChart,
+    // PieChart,
+    // BarChartV2,
+    // LineChart,
     InfoCardVariant1,
   },
   props: {
@@ -69,16 +69,16 @@ export default defineComponent({
       > | null,
     };
   },
-  mounted() {
-    this.randomChartComponent1 = this.randomChartComponent();
-    this.randomChartComponent2 = this.randomChartComponent();
-  },
-  methods: {
-    randomChartComponent() {
-      const components = [LineChart, BarChart, PieChart];
-      const randomIndex = Math.floor(Math.random() * components.length);
-      return components[randomIndex];
-    },
-  },
+  // mounted() {
+  //   this.randomChartComponent1 = this.randomChartComponent();
+  //   this.randomChartComponent2 = this.randomChartComponent();
+  // },
+  // methods: {
+  //   randomChartComponent() {
+  //     const components = [LineChart, BarChartV2, PieChart];
+  //     const randomIndex = Math.floor(Math.random() * components.length);
+  //     return components[randomIndex];
+  //   },
+  // },
 });
 </script>
