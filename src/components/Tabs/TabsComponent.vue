@@ -44,17 +44,17 @@ ul.tabs__header {
 
 ul.tabs__header > li {
   padding: 15px 30px;
-  border-radius: 10px;
+  border-radius: 10px 10px 0 0;
   margin: 0;
   display: inline-block;
-  margin-right: 5px;
+  border: solid 1px #ccc;
   cursor: pointer;
+  border-bottom: none;
 }
 
 ul.tabs__header > li.tab__selected {
   font-weight: bold;
   border-radius: 10px 10px 0 0;
-  border-bottom: 8px solid transparent;
 }
 
 .tabs {
