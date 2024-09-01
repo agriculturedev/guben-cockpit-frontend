@@ -36,7 +36,7 @@ export default {
 <style lang="scss" scoped>
 .tab {
   display: flex;
-  min-height: 100%;
+  height: 100%;
   border-radius: 10px;
   background-color: #fff;
   padding: 1rem;
@@ -45,10 +45,10 @@ export default {
   position: relative;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   border: solid 1px #ccc;
+  max-height: 70vh;
 
   .map-slot {
     display: flex;
-    flex-direction: column;
     flex: 1;
 
     .map {
@@ -57,7 +57,9 @@ export default {
     }
   }
   .info-slot {
-    width: auto;
+    padding: 10px;
+    position: relative;
+    overflow-y: auto;
     flex: 1;
   }
 }
