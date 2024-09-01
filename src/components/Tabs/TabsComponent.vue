@@ -37,9 +37,9 @@ export default {
 
 <style lang="css">
 ul.tabs__header {
-  display: block;
+  display: flex;
   list-style: none;
-  padding: 0 0 0 20px;
+  padding: 0 20px 0 20px;
 }
 
 ul.tabs__header > li {
