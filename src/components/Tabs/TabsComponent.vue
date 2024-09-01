@@ -43,7 +43,7 @@ ul.tabs__header {
 }
 
 ul.tabs__header > li {
-  padding: 15px 30px;
+  padding: 12px 18px;
   border-radius: 10px 10px 0 0;
   margin: 0;
   display: inline-block;
