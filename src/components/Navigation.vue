@@ -1,11 +1,11 @@
 <template>
   <div class="nav-container">
-    <div id="logo">
+    <div id="logo" class="section">
       <router-link to="/" class="nav-item">
         <img src="@/assets/stadt-guben-wappen.jpg" alt="logo" />
       </router-link>
     </div>
-    <ul>
+    <ul class="section">
       <li>
         <router-link to="/" class="nav-item">
           <HomeIcon class="icon" />
@@ -27,7 +27,7 @@
         </router-link>
       </li>
     </ul>
-    <div></div>
+    <div class="section"></div>
   </div>
 </template>
 
@@ -86,6 +86,18 @@ export default defineComponent({
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+
+  .section {
+    flex: 1;
+  }
+
+  #logo {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    height: 100%;
+    margin-right: 20px;
+  }
 
   #logo {
     display: flex;

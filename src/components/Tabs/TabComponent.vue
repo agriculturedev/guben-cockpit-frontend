@@ -44,12 +44,12 @@ export default {
   gap: 1rem;
   position: relative;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  border: solid 1px #ccc;
+  max-height: 70vh;
 
   .map-slot {
-    width: 50%;
-    height: calc(100% - 1px);
     display: flex;
-    flex-direction: column;
+    flex: 1;
 
     .map {
       height: 100%;
@@ -57,7 +57,10 @@ export default {
     }
   }
   .info-slot {
-    width: auto;
+    padding: 10px;
+    position: relative;
+    overflow-y: auto;
+    flex: 1;
   }
 }
 </style>
