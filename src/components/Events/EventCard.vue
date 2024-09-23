@@ -1,6 +1,5 @@
 <template>
   <div class="event">
-    <div class="event-header">header</div>
     <div class="event-content">
       <div class="title-content">
         <div class="title-content-title bold">Titel</div>
