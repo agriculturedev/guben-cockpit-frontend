@@ -67,6 +67,7 @@ export default defineComponent({
 <style lang="scss" scoped>
 .wrapper {
   height: 100%;
+  padding-bottom: 20px;
 }
 
 .cardWrapper {

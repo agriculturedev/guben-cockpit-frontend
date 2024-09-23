@@ -16,18 +16,18 @@
 }
 
 ::-webkit-scrollbar {
-  width: 0.6rem;
-  height: 0.6rem;
+  width: 0.3rem;
+  height: 0.3rem;
 }
 
 ::-webkit-scrollbar-track {
-  -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.15);
   border-radius: 4px;
+  background-color: #f5f5f5;
 }
 
 ::-webkit-scrollbar-thumb {
   border-radius: 4px;
-  -webkit-box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.25);
+  background-color: #888;
 }
 
 #container {
