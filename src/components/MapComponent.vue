@@ -22,7 +22,7 @@ const props = defineProps<MapComponentProps>();
 
 <style lang="scss" scoped>
 .iframe-container {
-  height: 100%;
+  height: auto;
   width: 100%;
 
   .map-iframe {

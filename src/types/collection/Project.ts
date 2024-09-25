@@ -1,19 +1,21 @@
 import { Image } from "../generic/Image";
+import { StrapiData } from "@/types/generic/StrapiData";
 
 export type Project = {
   id: number;
   attributes: attributes;
 };
 
-type attributes = {
+type attributes = StrapiData & {
+  projectId: string;
   title: string;
   description: string;
   image?: Image;
   contact: Contact;
-  createdAt: Date;
-  locale: string;
-  publishedAt: Date;
-  updatedAt: Date;
+  fullText: string;
+  imageUrl: string;
+  imageCaption: string;
+  imageCredits: string;
 };
 
 export type Contact = {

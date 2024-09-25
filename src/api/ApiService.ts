@@ -4,7 +4,8 @@ import { PagedResult } from "@/types/generic/PagedResult";
 
 import { Event } from "@/types/collection/Event";
 
-export const BASE_URL = "https://admin.guben.elie.de";
+// export const BASE_URL = "https://admin.guben.elie.de";
+export const BASE_URL = "http://192.168.8.104:1337";
 const BASE_API_URL = `${BASE_URL}/api`;
 
 export async function fetchProjects() {
