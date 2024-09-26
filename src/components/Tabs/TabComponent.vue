@@ -40,16 +40,21 @@ export default {
   border-radius: 10px;
   background-color: #fff;
   padding: 1rem;
-  flex-direction: row;
+  flex-direction: column;
   gap: 1rem;
   position: relative;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   border: solid 1px #ccc;
   max-height: 70vh;
 
+  @media (min-width: 768px) {
+    flex-direction: row;
+  }
+
   .map-slot {
     display: flex;
     flex: 1;
+    min-height: 300px;
 
     .map {
       height: 100%;

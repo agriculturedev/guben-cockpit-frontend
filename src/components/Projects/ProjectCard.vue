@@ -1,8 +1,9 @@
 <template>
   <div class="project">
-    <GenericImage
-      v-if="project.attributes.image?.data?.id"
-      :image="project.attributes.image"
+    <img
+      class="image"
+      :src="project.attributes.imageUrl"
+      :alt="project.attributes.imageCaption"
     />
     <div class="project-content">
       <h3>{{ project.attributes.title }}</h3>
@@ -18,14 +19,12 @@
 <script lang="ts">
 import { defineComponent, PropType } from "vue";
 import { Project } from "@/types/collection/Project";
-import GenericImage from "@/components/Generic/Image.vue";
 import ContactInformation from "@/components/Projects/ContactInfo.vue";
 
 export default defineComponent({
   name: "ProjectCard",
   components: {
     ContactInformation,
-    GenericImage,
   },
   props: {
     project: {
@@ -44,8 +43,12 @@ export default defineComponent({
   border: 1px solid #ccc;
   border-radius: 4px;
   width: 100%;
-  //max-width: 500px;
   background-color: white;
+
+  .image {
+    width: 100%;
+    height: auto;
+  }
 
   .project-content {
     padding: 10px;
