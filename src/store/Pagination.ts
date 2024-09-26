@@ -1,11 +1,11 @@
 // store/modules/pagination.ts
-import { createStore, Module } from "vuex";
+import { Module } from "vuex";
 import { Pagination } from "@/types/generic/Pagination";
 
 export const defaultPagination: Pagination = {
   page: 1,
   pageCount: 0,
-  pageSize: 5,
+  pageSize: 10,
   total: 0,
 };
 

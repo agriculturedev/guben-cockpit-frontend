@@ -1,4 +1,4 @@
-// src/store/modules/events.ts
+// src/store/modules/projects.ts
 import { Module } from "vuex";
 import { fetchProjects } from "@/api/ApiService";
 import { Pagination } from "@/types/generic/Pagination";
@@ -17,6 +17,7 @@ const projectsModule: Module<ProjectsState, unknown> = {
   },
   getters: {
     async getProjects(
+      state,
       pagination = defaultPagination
     ): Promise<PagedResult<Project>> {
       return await fetchProjects(pagination);
@@ -28,17 +29,29 @@ const projectsModule: Module<ProjectsState, unknown> = {
         return {
           id: project.id,
           attributes: {
+            projectId: project.attributes.projectId,
             title: project.attributes.title,
             description: project.attributes.description,
+            fullText: project.attributes.fullText,
+            imageUrl: project.attributes.imageUrl,
+            imageCaption: project.attributes.imageCaption,
+            imageCredits: project.attributes.imageCredits,
             locale: project.attributes.locale,
+            createdAt: project.attributes.createdAt,
+            publishedAt: project.attributes.publishedAt,
+            updatedAt: project.attributes.updatedAt,
           },
         };
       });
     },
   },
   actions: {
-    async fetchProjects({ commit }, pagination: Pagination): Promise<void> {
+    async fetchProjects(
+      { commit, state },
+      pagination: Pagination
+    ): Promise<void> {
       const projects = await fetchProjects(pagination);
+      console.log(projects);
       commit("setProjects", projects.data);
       commit("pagination/SET_PAGINATION", projects.meta.pagination, {
         root: true,
