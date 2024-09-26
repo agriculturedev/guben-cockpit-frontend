@@ -3,9 +3,10 @@ import { Pagination } from "@/types/generic/Pagination";
 import { PagedResult } from "@/types/generic/PagedResult";
 
 import { Event } from "@/types/collection/Event";
+import { Project } from "@/types/collection/Project";
 
-// export const BASE_URL = "https://admin.guben.elie.de";
-export const BASE_URL = "http://192.168.8.104:1337";
+export const BASE_URL = "https://admin.guben.elie.de";
+// export const BASE_URL = "http://192.168.8.104:1337";
 
 const BASE_API_URL = `${BASE_URL}/api`;
 
@@ -26,7 +27,7 @@ export async function fetchProjectsPage() {
 
 export async function fetchProjects(
   pagination: Pagination
-): Promise<PagedResult<Event>> {
+): Promise<PagedResult<Project>> {
   try {
     const response = await fetch(
       `${BASE_API_URL}/projects?pagination[page]=${pagination.page}&pagination[pageSize]=${pagination.pageSize}`
