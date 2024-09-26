@@ -1,4 +1,3 @@
-import { Image } from "../generic/Image";
 import { StrapiData } from "@/types/generic/StrapiData";
 
 export type Project = {
@@ -10,8 +9,6 @@ type attributes = StrapiData & {
   projectId: string;
   title: string;
   description: string;
-  image?: Image;
-  contact: Contact;
   fullText: string;
   imageUrl: string;
   imageCaption: string;
