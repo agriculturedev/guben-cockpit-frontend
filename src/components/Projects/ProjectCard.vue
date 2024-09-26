@@ -1,5 +1,5 @@
 <template>
-  <div class="project">
+  <div class="project" @click="openDialog">
     <img
       class="image"
       :src="project.attributes.imageUrl"
@@ -7,7 +7,7 @@
     />
     <div class="project-content">
       <h3>{{ project.attributes.title }}</h3>
-      <p>{{ project.attributes.description }}</p>
+      <!--      <p>{{ project.attributes.description }}</p>-->
     </div>
     <ContactInformation
       v-if="project.attributes.contact"
@@ -31,6 +31,12 @@ export default defineComponent({
       // provide more specific type to `Object`
       type: Object as PropType<Project>,
       required: true,
+    },
+  },
+  methods: {
+    openDialog() {
+      this.$store.dispatch("projectModal/openModal", this.project);
+      console.log("open dialog");
     },
   },
 });
