@@ -1,7 +1,7 @@
 <template>
   <div class="button">
-    <a :href="values.URL" :target="values.newTab ? '_blank' : ''">{{
-      values.Text
+    <a :href="values.url" :target="values.newTab ? '_blank' : ''">{{
+      values.text
     }}</a>
   </div>
 </template>

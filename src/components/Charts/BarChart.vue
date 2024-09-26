@@ -22,6 +22,7 @@ export default {
   },
   data() {
     return {
+      title: "barchart placeholger",
       series: [
         {
           name: "series-1",
@@ -62,3 +63,9 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.title {
+  padding: 1rem;
+}
+</style>

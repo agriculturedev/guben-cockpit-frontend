@@ -16,15 +16,18 @@
     "contentful-rich-text-vue-renderer": "^3.1.0",
     "core-js": "^3.8.3",
     "date-fns": "^3.6.0",
+    "papaparse": "^5.4.1",
     "vue": "^3.2.13",
     "vue-markdown-render": "^2.2.1",
     "vue-router": "^4.0.3",
+    "vue-svg": "^1.0.1",
     "vue3-apexcharts": "^1.5.3",
     "vuex": "^4.0.0"
   },
   "devDependencies": {
     "@types/date-fns": "^2.6.0",
     "@types/jest": "^27.0.1",
+    "@types/papaparse": "^5.3.14",
     "@typescript-eslint/eslint-plugin": "^5.4.0",
     "@typescript-eslint/parser": "^5.4.0",
     "@vue/cli-plugin-babel": "~5.0.0",

@@ -1,25 +1,30 @@
 <template>
   <div class="project">
-    <GenericImage
-      v-if="project.attributes.Image?.data?.id"
-      :image="project.attributes.Image"
+    <img
+      class="image"
+      :src="project.attributes.imageUrl"
+      :alt="project.attributes.imageCaption"
     />
     <div class="project-content">
-      <h3>{{ project.attributes.Title }}</h3>
-      <p>{{ project.attributes.Description }}</p>
+      <h3>{{ project.attributes.title }}</h3>
+      <p>{{ project.attributes.description }}</p>
     </div>
+    <ContactInformation
+      v-if="project.attributes.contact"
+      :contact="project.attributes.contact"
+    />
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, PropType } from "vue";
 import { Project } from "@/types/collection/Project";
-import GenericImage from "@/components/Generic/Image.vue";
+import ContactInformation from "@/components/Projects/ContactInfo.vue";
 
 export default defineComponent({
   name: "ProjectCard",
   components: {
-    GenericImage,
+    ContactInformation,
   },
   props: {
     project: {
@@ -38,11 +43,16 @@ export default defineComponent({
   border: 1px solid #ccc;
   border-radius: 4px;
   width: 100%;
-  max-width: 500px;
   background-color: white;
+
+  .image {
+    width: 100%;
+    height: auto;
+  }
 
   .project-content {
     padding: 10px;
+    text-wrap: pretty;
   }
 }
 </style>

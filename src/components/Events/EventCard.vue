@@ -100,13 +100,13 @@ export default defineComponent({
 
       .title-content-content,
       .description-content-content {
+        overflow: auto;
         grid-column: span 2;
         display: flex;
         justify-content: flex-start;
         align-items: flex-start;
 
         &__max-height {
-          overflow: hidden;
           text-overflow: ellipsis;
           max-height: 100px;
         }

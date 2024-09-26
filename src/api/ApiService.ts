@@ -4,7 +4,8 @@ import { PagedResult } from "@/types/generic/PagedResult";
 
 import { Event } from "@/types/collection/Event";
 
-export const BASE_URL = "https://admin.guben.elie.de";
+// export const BASE_URL = "https://admin.guben.elie.de";
+export const BASE_URL = "http://192.168.8.104:1337";
 const BASE_API_URL = `${BASE_URL}/api`;
 
 export async function fetchProjects() {
@@ -23,7 +24,7 @@ export async function fetchProjects() {
 export async function fetchProjectsPage() {
   try {
     const response = await fetch(
-      `${BASE_API_URL}/project-view?populate=InfoFromAdmin,projects,projects.Image`
+      `${BASE_API_URL}/project-view?populate=InfoFromAdmin,projects,projects.image,projects.contact`
     );
     if (!response.ok) {
       throw new Error("Network response was not ok");
@@ -31,6 +32,21 @@ export async function fetchProjectsPage() {
     return (await response.json()).data;
   } catch (error) {
     console.error("Error fetching project page:", error);
+    throw error; // re-throwing the error is important for the component to handle it
+  }
+}
+
+export async function fetchHomePage() {
+  try {
+    const response = await fetch(
+      `${BASE_API_URL}/home-view?populate=tabs,tabs.cards,tabs.cards.button`
+    );
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+    return (await response.json()).data;
+  } catch (error) {
+    console.error("Error fetching home page:", error);
     throw error; // re-throwing the error is important for the component to handle it
   }
 }

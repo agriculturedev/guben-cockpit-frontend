@@ -17,37 +17,55 @@ export default {
       default: "Tab",
     },
     activeTab: {
-      type: String,
-      default: "1",
+      type: Number,
+      default: 0,
     },
     tabindex: {
-      type: String,
+      type: Number,
     },
   },
 
   computed: {
     isActive() {
-      return this.$props.activeTab.toString() === this.$props.tabindex;
+      return this.$props.activeTab === this.$props?.tabindex;
     },
-  }
+  },
 };
 </script>
 
 <style lang="scss" scoped>
 .tab {
   display: flex;
-  width: 100%;
   height: 100%;
-  flex-direction: row;
-  gap: 2rem;
-}
+  border-radius: 10px;
+  background-color: #fff;
+  padding: 1rem;
+  flex-direction: column;
+  gap: 1rem;
+  position: relative;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  border: solid 1px #ccc;
+  max-height: 70vh;
 
-.map-slot {
-  width: 50%;
-  height: clamp(10vh, 50vh, 70vh);
-}
+  @media (min-width: 768px) {
+    flex-direction: row;
+  }
 
-.info-slot {
-  width: 50%;
+  .map-slot {
+    display: flex;
+    flex: 1;
+    min-height: 300px;
+
+    .map {
+      height: 100%;
+      width: 100%;
+    }
+  }
+  .info-slot {
+    padding: 10px;
+    position: relative;
+    overflow-y: auto;
+    flex: 1;
+  }
 }
 </style>

@@ -2,37 +2,30 @@
   <div class="tabs">
     <ul class="tabs__header">
       <li
-        v-for="tab in tabs"
-        :key="tab.props.tabindex"
-        @click="setActiveTab(tab.props.tabindex)"
-        :class="{ tab__selected: tab.props.tabindex == activeTab }"
+        v-for="(tab, index) in tabs"
+        :key="index"
+        @click="setActiveTab(index)"
+        :class="{ tab__selected: index === activeTab }"
       >
-        {{ tab.props.title }}
+        {{ tab?.props?.title }}
       </li>
     </ul>
 
-    <slot v-bind:activeTab="$data?.activeTab"> </slot>
+    <slot v-bind:activeTab="$data?.activeTab" class="tabs__body"> </slot>
   </div>
 </template>
 
 <script lang="js">
 
-
 export default {
-  props: {
-    mode: {
-      type: String,
-      default: "light",
-    },
-  },
   data() {
     return {
       tabs: [],
-      activeTab: "0",
+      activeTab: 0,
     };
   },
   mounted() {
-    this.tabs = this.$slots.default();
+    this.tabs = this.$slots.default()[0]?.children; // not sure why i need to use the [0]?.children here, something to do with slots?
   },
   methods: {
     setActiveTab(tabindex) {
@@ -44,38 +37,28 @@ export default {
 
 <style lang="css">
 ul.tabs__header {
-  display: block;
+  display: flex;
   list-style: none;
-  margin: 0 0 0 20px;
-  padding: 0;
+  padding: 0 20px 0 20px;
 }
 
 ul.tabs__header > li {
-  padding: 15px 30px;
-  border-radius: 10px;
+  padding: 12px 18px;
+  border-radius: 10px 10px 0 0;
   margin: 0;
   display: inline-block;
-  margin-right: 5px;
+  border: solid 1px #ccc;
   cursor: pointer;
+  border-bottom: none;
 }
 
 ul.tabs__header > li.tab__selected {
   font-weight: bold;
   border-radius: 10px 10px 0 0;
-  border-bottom: 8px solid transparent;
 }
 
-.tab {
-  display: inline-block;
-  color: black;
-  padding: 1rem;
-  width: 100%;
-  border-radius: 10px;
-  min-height: 400px;
-}
-
-.tabs .tab {
-  background-color: #fff;
+.tabs {
+  height: 100%;
 }
 
 .tabs li {
@@ -86,5 +69,9 @@ ul.tabs__header > li.tab__selected {
 .tabs li.tab__selected {
   background-color: #fff;
   color: #505050;
+}
+
+.tabs__body {
+  height: 100%;
 }
 </style>

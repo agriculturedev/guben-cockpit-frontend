@@ -15,9 +15,24 @@
   font-family: Arial, sans-serif;
 }
 
+::-webkit-scrollbar {
+  width: 0.3rem;
+  height: 0.3rem;
+}
+
+::-webkit-scrollbar-track {
+  border-radius: 4px;
+  background-color: #f5f5f5;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background-color: #888;
+}
+
 #container {
   min-height: 100vh;
-  width: 100vw;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -35,7 +50,7 @@
     }
 
     .max-width {
-      max-width: 1500px;
+      max-width: clamp(200px, 90vw, 2000px);
       width: 100%;
     }
   }

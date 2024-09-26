@@ -7,10 +7,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, ref } from "vue";
+import { defineComponent, PropType } from "vue";
 import { Image } from "@/types/generic/Image";
 import { BASE_URL } from "@/api/ApiService";
-import { mount } from "@vue/test-utils";
 
 export default defineComponent({
   name: "GenericImage",
