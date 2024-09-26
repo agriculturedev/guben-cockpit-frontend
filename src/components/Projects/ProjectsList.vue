@@ -1,5 +1,5 @@
 <template>
-  <h2>Projekten</h2>
+  <h2>Projekte</h2>
   <div class="projects">
     <project-card
       v-for="project in projects"
