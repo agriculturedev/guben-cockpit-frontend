@@ -146,7 +146,6 @@ export default {
   align-items: center;
   justify-content: center;
   gap: 1rem;
-  height: 40vh;
 
   .carousel-button {
     background-color: transparent;
