@@ -13,6 +13,7 @@ interface PaginationState {
   pagination: Pagination;
 }
 
+// needs to be update to be used with multiple tables, pass a state key for example like 'projects'
 const paginationModule: Module<PaginationState, unknown> = {
   namespaced: true,
   state: {
