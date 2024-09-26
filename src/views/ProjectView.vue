@@ -11,9 +11,11 @@
             class="description"
           />
           <CarouselComponent
-            class="project-list"
+            class="project-carousel"
             :projects="projectPage.attributes.projects.data"
           />
+
+          <projects-list class="project-list" :projects="projects" />
 
           <DynamicRenderer
             class="info-from-admin"
@@ -27,19 +29,24 @@
       </template>
     </ErrorComponent>
   </PageContainer>
+  <ProjectDialog />
 </template>
 
 <style scoped lang="scss">
 .description {
-  padding-top: 20px;
+  padding-top: 1rem;
+}
+
+.project-carousel {
+  padding-top: 1rem;
 }
 
 .project-list {
-  padding-top: 30px;
+  padding-top: 1rem;
 }
 
 .info-from-admin {
-  padding-top: 30px;
+  padding: 30px 0;
 }
 </style>
 
@@ -53,16 +60,26 @@ import VueMarkdown from "vue-markdown-render";
 import PageTitle from "@/components/Typography/PageTitle.vue";
 import PageContainer from "@/components/PageContainer.vue";
 import CarouselComponent from "@/components/Carousel/CarouselComponent.vue";
+import ProjectsList from "@/components/Projects/ProjectsList.vue";
+import { Project } from "@/types/collection/Project";
+import ProjectDialog from "@/components/Projects/ProjectDialog.vue";
 
 export default defineComponent({
   name: "ProjectView",
   components: {
+    ProjectDialog,
+    ProjectsList,
     CarouselComponent,
     PageContainer,
     PageTitle,
     ErrorComponent,
     DynamicRenderer,
     VueMarkdown,
+  },
+  computed: {
+    projects(): Project[] {
+      return this.$store.state.projects.projects;
+    },
   },
   data() {
     return {
@@ -77,12 +94,26 @@ export default defineComponent({
   },
   async mounted() {
     try {
+      await this.$store.dispatch(
+        "projects/fetchProjects",
+        this.$store.state.pagination.pagination
+      );
       this.projectPage = (await fetchProjectsPage()) as ProjectView;
     } catch (error) {
       this.error = error as any;
     } finally {
       this.loading = false;
     }
+  },
+  watch: {
+    "$store.state.pagination.pagination": {
+      async handler(newPagination, oldPagination) {
+        if (JSON.stringify(newPagination) !== JSON.stringify(oldPagination)) {
+          await this.$store.dispatch("projects/fetchProjects", newPagination);
+        }
+      },
+      deep: true,
+    },
   },
 });
 </script>
