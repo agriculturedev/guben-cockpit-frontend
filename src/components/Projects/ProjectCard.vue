@@ -7,7 +7,7 @@
     />
     <div class="project-content">
       <h3>{{ project.attributes.title }}</h3>
-      <p>{{ project.attributes.description }}</p>
+      <!--      <p>{{ project.attributes.description }}</p>-->
     </div>
     <ContactInformation
       v-if="project.attributes.contact"

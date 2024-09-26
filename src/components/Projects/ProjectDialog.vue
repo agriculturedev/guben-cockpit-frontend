@@ -26,7 +26,7 @@
             {{ project.attributes.imageCredits }}
           </p>
         </div>
-        <p>{{ project.attributes.description }}</p>
+        <div v-html="project.attributes.description" />
         <div v-html="project.attributes.fullText" />
       </CardComponent>
     </dialog>
