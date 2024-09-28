@@ -5,7 +5,7 @@ import { PagedResult } from "@/types/generic/PagedResult";
 import { Event } from "@/types/collection/Event";
 import { Project } from "@/types/collection/Project";
 
-export const BASE_URL = process.env.VUE_APP_API_URL;
+export const BASE_URL = "__VUE_APP_API_URL__";
 
 const BASE_API_URL = `${BASE_URL}/api`;
 
