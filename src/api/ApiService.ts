@@ -5,7 +5,7 @@ import { PagedResult } from "@/types/generic/PagedResult";
 import { Event } from "@/types/collection/Event";
 import { Project } from "@/types/collection/Project";
 
-export const BASE_URL = "https://admin.guben.elie.de";
+export const BASE_URL = "http://localhost:1337";
 
 const BASE_API_URL = `${BASE_URL}/api`;
 
@@ -62,7 +62,7 @@ export async function fetchEvents(
 ): Promise<PagedResult<Event>> {
   try {
     const response = await fetch(
-      `${BASE_API_URL}/events?populate=target_groups${filters}&pagination[page]=${pagination.page}&pagination[pageSize]=${pagination.pageSize}`
+      `${BASE_API_URL}/events?populate=categories,target_groups${filters}&pagination[page]=${pagination.page}&pagination[pageSize]=${pagination.pageSize}`
     );
     if (!response.ok) {
       throw new Error("Network response was not ok");

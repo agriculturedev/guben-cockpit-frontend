@@ -39,6 +39,8 @@ const eventsModule: Module<EventsState, unknown> = {
             createdAt: event.attributes.createdAt,
             publishedAt: event.attributes.publishedAt,
             updatedAt: event.attributes.updatedAt,
+            categories: event.attributes.categories,
+            urls: event.attributes.urls,
           },
         };
       });
@@ -53,6 +55,7 @@ const eventsModule: Module<EventsState, unknown> = {
       pagination: Pagination
     ): Promise<void> {
       const events = await fetchEvents(state.eventFilters, pagination);
+      console.log(events.data[0]);
       commit("setEvents", events.data);
       commit("pagination/SET_PAGINATION", events.meta.pagination, {
         root: true,
