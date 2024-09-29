@@ -21,7 +21,7 @@
                   ).toLocaleDateString()}, To: ${new Date(
                     filter.end
                   ).toLocaleDateString()}`
-                : `Titel: ${filter}`
+                : `${filter}`
             }}</span
           >
           <eventList :events="events" />
@@ -181,6 +181,7 @@ export default defineComponent({
     },
   },
   async mounted() {
+    console.log(this.filters);
     try {
       await this.$store.dispatch(
         "events/fetchEvents",
