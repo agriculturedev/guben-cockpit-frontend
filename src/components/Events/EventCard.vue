@@ -92,11 +92,6 @@ export default defineComponent({
       return new Date(this.event.attributes.startDate).formatDateTime(false);
     },
   },
-  mounted() {
-    for (const category of this.event.attributes.categories.data) {
-      console.log("mounted", category.attributes.Name);
-    }
-  },
 });
 </script>
 

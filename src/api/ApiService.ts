@@ -86,3 +86,16 @@ export async function fetchEventsPage() {
     throw error; // re-throwing the error is important for the component to handle it
   }
 }
+
+export async function fetchCategories() {
+  try {
+    const response = await fetch(`${BASE_API_URL}/categories`);
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+    return await response.json();
+  } catch (error) {
+    console.error("Error fetching categories:", error);
+    throw error; // re-throwing the error is important for the component to handle it
+  }
+}
