@@ -5,7 +5,7 @@ import { PagedResult } from "@/types/generic/PagedResult";
 import { Event } from "@/types/collection/Event";
 import { Project } from "@/types/collection/Project";
 
-export const BASE_URL = "__VUE_APP_API_URL__";
+export const BASE_URL = "https://admin.guben.elie.de";
 
 const BASE_API_URL = `${BASE_URL}/api`;
 
