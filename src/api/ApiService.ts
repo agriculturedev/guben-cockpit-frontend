@@ -5,7 +5,8 @@ import { PagedResult } from "@/types/generic/PagedResult";
 import { Event } from "@/types/collection/Event";
 import { Project } from "@/types/collection/Project";
 
-export const BASE_URL = "http://localhost:1337";
+export const BASE_URL = "https://admin.guben.elie.de";
+// export const BASE_URL = "http://localhost:1337";
 
 const BASE_API_URL = `${BASE_URL}/api`;
 
