@@ -8,12 +8,14 @@ import { Project } from "@/types/collection/Project";
 
 interface ProjectsState {
   projects: Project[];
+  pagination: Pagination;
 }
 
 const projectsModule: Module<ProjectsState, unknown> = {
   namespaced: true,
   state: {
     projects: [],
+    pagination: defaultPagination,
   },
   getters: {
     async getProjects(
@@ -51,7 +53,7 @@ const projectsModule: Module<ProjectsState, unknown> = {
       pagination: Pagination
     ): Promise<void> {
       const projects = await fetchProjects(pagination);
-      console.log(projects);
+      console.log("projects ", projects.data);
       commit("setProjects", projects.data);
       commit("pagination/SET_PAGINATION", projects.meta.pagination, {
         root: true,
