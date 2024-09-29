@@ -1,6 +1,5 @@
 <template>
   <div class="event">
-    <div class="event-header">header</div>
     <div class="event-content">
       <div class="title-content">
         <div class="title-content-title bold">Titel</div>
@@ -16,6 +15,17 @@
           {{ event.attributes.description }}
         </div>
       </div>
+      <div class="category-content">
+        <div class="category-content-title">Kategorie</div>
+        <div class="category-content-content title-content-content__max-height">
+          <div
+            v-bind:key="index"
+            v-for="(item, index) in event.attributes.categories.data"
+          >
+            {{ item.attributes.Name }}
+          </div>
+        </div>
+      </div>
       <div class="date-content">
         <div class="date-content-title">Start Datum</div>
         <div class="date-content-content title-content-content__max-height">
@@ -28,6 +38,30 @@
           {{ endDate }}
         </div>
       </div>
+      <div class="links-content">
+        <div class="links-content-title">Links</div>
+        <div class="links-content-content title-content-content__max-height">
+          <a
+            v-bind:key="index"
+            :href="item.link"
+            target="_black"
+            v-for="(item, index) in event.attributes.urls.filter(
+              (link) => link.link !== '' && link.description !== ''
+            )"
+            >{{ item.description }}
+            <span
+              v-if="
+                index <
+                event.attributes.urls.filter(
+                  (link) => link.link !== '' && link.description !== ''
+                ).length -
+                  1
+              "
+              >,
+            </span>
+          </a>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -35,6 +69,7 @@
 <script lang="ts">
 import { defineComponent, PropType } from "vue";
 import { Event } from "@/types/collection/Event";
+import events from "../../store/Events";
 
 export default defineComponent({
   name: "EventCard",
@@ -47,6 +82,9 @@ export default defineComponent({
     },
   },
   computed: {
+    events() {
+      return events;
+    },
     startDate(): string {
       return new Date(this.event.attributes.startDate).formatDateTime(false);
     },
@@ -81,7 +119,9 @@ export default defineComponent({
 
     .title-content,
     .description-content,
-    .date-content {
+    .date-content,
+    .category-content,
+    .links-content {
       width: 100%;
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -92,14 +132,20 @@ export default defineComponent({
       }
 
       .title-content-title,
-      .description-content-title {
+      .description-content-title,
+      .category-content-title,
+      .date-content-title,
+      .links-content-title {
         display: flex;
         justify-content: flex-end;
         align-items: flex-start;
       }
 
       .title-content-content,
-      .description-content-content {
+      .description-content-content,
+      .category-content-content,
+      .date-content-content,
+      .links-content-content {
         overflow: auto;
         grid-column: span 2;
         display: flex;

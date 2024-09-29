@@ -6,7 +6,7 @@
         @update="(n: string) => updateFilter(attribute.id.toString(), n)"
       />
       <Selector
-        v-if="attribute.values"
+        v-if="attribute.type === 'select'"
         :attribute="attribute"
         @update="(n: string) => updateFilter(attribute.id.toString(), n)"
       />
@@ -14,6 +14,12 @@
         v-if="attribute.type === 'date'"
         :attribute="attribute"
         @date-update="(n: string) => updateFilter(attribute.id.toString(), n)"
+      />
+      <CategorySelector
+        v-if="attribute.type === 'category'"
+        :attribute="attribute"
+        @update="(n: string) =>
+      updateFilter(attribute.id.toString(), n)"
       />
     </div>
   </div>
@@ -25,6 +31,7 @@ import { FilteredAttribute } from "@/types/generic/FilteredAttribute";
 import Search from "@/components/Filters/Search.vue";
 import Selector from "@/components/Filters/Selector.vue";
 import DateSelector from "@/components/Filters/DateSelector.vue";
+import CategorySelector from "@/components/Filters/CategorySelector.vue";
 export default defineComponent({
   name: "FilterGroup",
   data() {
@@ -40,6 +47,7 @@ export default defineComponent({
     Search,
     Selector,
     DateSelector,
+    CategorySelector,
   },
   methods: {
     updateFilter(id: string, value: any) {

@@ -39,6 +39,8 @@ const eventsModule: Module<EventsState, unknown> = {
             createdAt: event.attributes.createdAt,
             publishedAt: event.attributes.publishedAt,
             updatedAt: event.attributes.updatedAt,
+            categories: event.attributes.categories,
+            urls: event.attributes.urls,
           },
         };
       });
