@@ -2,6 +2,7 @@
   <Selector
     :attribute="dateAttribute"
     @update="(n: string) => updateFilter(attribute.id.toString(), n)"
+    :right="true"
   >
   </Selector>
 </template>
