@@ -5,7 +5,10 @@
     v-click-outside="closeDropdown"
   >
     <span>{{ attribute.label ? attribute.label : attribute.id }}</span>
-    <ul v-show="dropdownActive" class="dropdown">
+    <ul
+      v-show="dropdownActive"
+      :class="'dropdown ' + (right === true ? 'right' : '')"
+    >
       <li
         @click="setSelection($event, value)"
         v-for="(value, index) in attribute.values"
@@ -37,6 +40,7 @@ export default defineComponent({
   name: "SelectorComponent",
   props: {
     attribute: [],
+    right: Boolean,
   },
   data() {
     return {
@@ -115,6 +119,7 @@ export default defineComponent({
   ul {
     position: absolute;
     left: 0;
+    right: auto;
     top: calc(100% + 10px);
     background-color: inherit;
     border: inherit;
@@ -124,6 +129,14 @@ export default defineComponent({
     box-sizing: border-box;
     box-shadow: 0 5px 12px -4px #ccc;
     border: none;
+    max-height: 400px;
+    overflow-y: scroll;
+
+    &.right {
+      right: 0;
+      left: auto;
+    }
+
     li {
       list-style: none;
       width: 100%;
