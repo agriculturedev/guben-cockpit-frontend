@@ -22,7 +22,7 @@
     "vue-router": "^4.0.3",
     "vue-svg": "^1.0.1",
     "vue3-apexcharts": "^1.5.3",
-    "vuex": "^4.0.0"
+    "vuex": "^4.0.2"
   },
   "devDependencies": {
     "@types/date-fns": "^2.6.0",

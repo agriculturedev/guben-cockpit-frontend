@@ -7,14 +7,14 @@
       :project="project"
     />
   </div>
-  <paginationComponent @updatePagination="handlePaginationUpdate" />
+  <projectsPaginatorComponent @updatePagination="handlePaginationUpdate" />
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import paginationComponent from "@/components/Generic/Pagination.vue";
 import { Pagination } from "@/types/generic/Pagination";
 import projectCard from "@/components/Projects/ProjectCard.vue";
+import projectsPaginatorComponent from "@/components/Generic/PaginationProjects.vue";
 
 export default defineComponent({
   name: "ProjectsList",
@@ -31,8 +31,8 @@ export default defineComponent({
     };
   },
   components: {
+    projectsPaginatorComponent,
     projectCard,
-    paginationComponent,
   },
   methods: {
     handlePaginationUpdate(newPagination: Pagination) {

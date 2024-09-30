@@ -36,7 +36,6 @@ export default defineComponent({
   methods: {
     openDialog() {
       this.$store.dispatch("projectModal/openModal", this.project);
-      console.log("open dialog");
     },
   },
 });

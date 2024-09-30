@@ -5,17 +5,19 @@ import { Pagination } from "@/types/generic/Pagination";
 import { defaultPagination } from "@/constants/defaultValues";
 import { PagedResult } from "@/types/generic/PagedResult";
 import { Project } from "@/types/collection/Project";
+import paginationModule from "@/store/Pagination";
 
 interface ProjectsState {
   projects: Project[];
-  pagination: Pagination;
 }
 
 const projectsModule: Module<ProjectsState, unknown> = {
   namespaced: true,
+  modules: {
+    pagination: paginationModule,
+  },
   state: {
     projects: [],
-    pagination: defaultPagination,
   },
   getters: {
     async getProjects(
@@ -53,9 +55,8 @@ const projectsModule: Module<ProjectsState, unknown> = {
       pagination: Pagination
     ): Promise<void> {
       const projects = await fetchProjects(pagination);
-      console.log("projects ", projects.data);
       commit("setProjects", projects.data);
-      commit("pagination/SET_PAGINATION", projects.meta.pagination, {
+      commit("projects/pagination/SET_PAGINATION", projects.meta.pagination, {
         root: true,
       });
     },
