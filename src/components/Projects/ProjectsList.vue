@@ -12,7 +12,7 @@
         :project="project"
       />
     </div>
-    <paginationComponent @updatePagination="handlePaginationUpdate" />
+    <projectsPaginatorComponent @updatePagination="handlePaginationUpdate" />
   </div>
 </template>
 
@@ -21,6 +21,7 @@ import { defineComponent, PropType } from "vue";
 import paginationComponent from "@/components/Generic/Pagination.vue";
 import { Pagination } from "@/types/generic/Pagination";
 import projectCard from "@/components/Projects/ProjectCard.vue";
+import projectsPaginatorComponent from "@/components/Generic/PaginationProjects.vue";
 import { FilteredAttribute } from "@/types/generic/FilteredAttribute";
 import { Event } from "@/types/collection/Event";
 import Search from "@/components/Filters/Search.vue";
@@ -43,9 +44,9 @@ export default defineComponent({
     };
   },
   components: {
+    projectsPaginatorComponent,
     Search,
     projectCard,
-    paginationComponent,
   },
   methods: {
     updateFilter(value: string) {

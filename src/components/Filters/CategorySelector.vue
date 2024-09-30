@@ -38,8 +38,6 @@ export default defineComponent({
   },
   methods: {
     updateFilter(id: string, value: string) {
-      console.log(value);
-
       this.$emit("update", value);
     },
   },

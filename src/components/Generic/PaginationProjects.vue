@@ -27,25 +27,27 @@ import { mapState, mapGetters, mapActions } from "vuex";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/vue/24/outline";
 
 export default defineComponent({
-  name: "PaginatorComponent",
+  name: "ProjectsPaginatorComponent",
   components: {
     ChevronLeftIcon,
     ChevronRightIcon,
   },
-  props: {},
   computed: {
-    ...mapState("pagination", {
+    ...mapState("projects/pagination", {
       pageIndex: (state: any) => state.pagination.page,
       pageCount: (state: any) => state.pagination.pageCount,
       pageSize: (state: any) => state.pagination.pageSize,
       total: (state: any) => state.pagination.total,
     }),
-    ...mapGetters("pagination", {
+    ...mapGetters("projects/pagination", {
       totalPages: "totalPages",
     }),
   },
   methods: {
-    ...mapActions("pagination", ["updatePageIndex", "updatePagination"]),
+    ...mapActions("projects/pagination", [
+      "updatePageIndex",
+      "updatePagination",
+    ]),
     nextPage() {
       if (this.pageIndex < this.totalPages) {
         const newPageIndex = this.pageIndex + 1;
