@@ -46,7 +46,7 @@
             v-bind:key="index"
             :href="item.link"
             target="_black"
-            v-for="(item, index) in event.attributes.urls.filter(
+            v-for="(item, index) in event.attributes.urls?.filter(
               (link) => link.link !== '' && link.description !== ''
             )"
             >{{ item.description }}
