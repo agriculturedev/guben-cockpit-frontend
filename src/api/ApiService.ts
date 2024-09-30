@@ -26,11 +26,12 @@ export async function fetchProjectsPage() {
 }
 
 export async function fetchProjects(
+  filters = "",
   pagination: Pagination
 ): Promise<PagedResult<Project>> {
   try {
     const response = await fetch(
-      `${BASE_API_URL}/projects?pagination[page]=${pagination.page}&pagination[pageSize]=${pagination.pageSize}`
+      `${BASE_API_URL}/projects?${filters}&pagination[page]=${pagination.page}&pagination[pageSize]=${pagination.pageSize}`
     );
     if (!response.ok) {
       throw new Error("Network response was not ok");

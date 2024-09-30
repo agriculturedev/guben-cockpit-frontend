@@ -9,6 +9,7 @@ import paginationModule from "@/store/Pagination";
 
 interface ProjectsState {
   projects: Project[];
+  projectFilters: string;
 }
 
 const projectsModule: Module<ProjectsState, unknown> = {
@@ -18,13 +19,14 @@ const projectsModule: Module<ProjectsState, unknown> = {
   },
   state: {
     projects: [],
+    projectFilters: "",
   },
   getters: {
     async getProjects(
       state,
       pagination = defaultPagination
     ): Promise<PagedResult<Project>> {
-      return await fetchProjects(pagination);
+      return await fetchProjects(state.projectFilters, pagination);
     },
   },
   mutations: {
@@ -48,17 +50,30 @@ const projectsModule: Module<ProjectsState, unknown> = {
         };
       });
     },
+    setProjectFilters(state: any, filters: any): void {
+      state.projectFilters = filters;
+    },
   },
   actions: {
     async fetchProjects(
       { commit, state },
       pagination: Pagination
     ): Promise<void> {
-      const projects = await fetchProjects(pagination);
+      const projects = await fetchProjects(state.projectFilters, pagination);
       commit("setProjects", projects.data);
       commit("projects/pagination/SET_PAGINATION", projects.meta.pagination, {
         root: true,
       });
+    },
+    async updateFilters({ commit, dispatch }, payload): Promise<void> {
+      switch (payload.from) {
+        case "projects":
+          commit("setProjectFilters", payload.filters);
+          break;
+        default:
+          break;
+      }
+      await dispatch("fetchProjects", defaultPagination);
     },
   },
 };
