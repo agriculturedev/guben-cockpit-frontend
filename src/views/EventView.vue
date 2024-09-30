@@ -118,7 +118,7 @@ export default defineComponent({
       this.filterTimeout = setTimeout(() => {
         const filters = this.buildFilterQuery(filter);
         this.dispatchFilterUpdate(filters);
-      }, 1000);
+      }, 300);
     },
     buildFilterQuery(filter: any): string {
       let filters = "";

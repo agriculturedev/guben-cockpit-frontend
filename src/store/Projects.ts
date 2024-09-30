@@ -9,12 +9,14 @@ import { Project } from "@/types/collection/Project";
 interface ProjectsState {
   projects: Project[];
   pagination: Pagination;
+  projectFilters: string;
 }
 
 const projectsModule: Module<ProjectsState, unknown> = {
   namespaced: true,
   state: {
     projects: [],
+    projectFilters: "",
     pagination: defaultPagination,
   },
   getters: {
@@ -22,7 +24,7 @@ const projectsModule: Module<ProjectsState, unknown> = {
       state,
       pagination = defaultPagination
     ): Promise<PagedResult<Project>> {
-      return await fetchProjects(pagination);
+      return await fetchProjects(state.projectFilters, pagination);
     },
   },
   mutations: {
@@ -46,18 +48,31 @@ const projectsModule: Module<ProjectsState, unknown> = {
         };
       });
     },
+    setProjectFilters(state: any, filters: any): void {
+      state.projectFilters = filters;
+    },
   },
   actions: {
     async fetchProjects(
       { commit, state },
       pagination: Pagination
     ): Promise<void> {
-      const projects = await fetchProjects(pagination);
+      const projects = await fetchProjects(state.projectFilters, pagination);
       console.log("projects ", projects.data);
       commit("setProjects", projects.data);
       commit("pagination/SET_PAGINATION", projects.meta.pagination, {
         root: true,
       });
+    },
+    async updateFilters({ commit, dispatch }, payload): Promise<void> {
+      switch (payload.from) {
+        case "projects":
+          commit("setProjectFilters", payload.filters);
+          break;
+        default:
+          break;
+      }
+      await dispatch("fetchProjects", defaultPagination);
     },
   },
 };
