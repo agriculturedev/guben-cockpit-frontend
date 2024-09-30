@@ -37,7 +37,6 @@ export default defineComponent({
   },
   methods: {
     updateFilter(id: string, value: string) {
-      console.log(value);
       const today = new Date();
       // set time to 00:00:00:000
       today.setHours(0, 0, 0, 0);

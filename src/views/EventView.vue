@@ -21,7 +21,7 @@
                   ).toLocaleDateString()}, To: ${new Date(
                     filter.end
                   ).toLocaleDateString()}`
-                : `Titel: ${filter}`
+                : `${filter}`
             }}</span
           >
           <eventList :events="events" />
@@ -99,6 +99,11 @@ export default defineComponent({
       return [
         { id: "datum", label: "Datum", type: "date" },
         { id: "search", label: "Search", type: "string" },
+        {
+          id: "category",
+          label: "Kategorie",
+          type: "category",
+        },
       ];
     },
     events(): Event[] {
@@ -113,7 +118,7 @@ export default defineComponent({
       this.filterTimeout = setTimeout(() => {
         const filters = this.buildFilterQuery(filter);
         this.dispatchFilterUpdate(filters);
-      }, 1000);
+      }, 300);
     },
     buildFilterQuery(filter: any): string {
       let filters = "";
@@ -128,6 +133,9 @@ export default defineComponent({
             break;
           case "datum":
             filters += this.buildDatumFilter(value);
+            break;
+          case "category":
+            filters += this.buildCategoryFilter(value);
             break;
           default:
             break;
@@ -153,16 +161,15 @@ export default defineComponent({
         start.getMonth() === end.getMonth() &&
         start.getDate() === end.getDate()
       ) {
-        return `&filters[$and][0][$and][1][startDate][$lte]=${start.toISOString()}
-        &filters[$and][0][$and][1][endDate][$gte]=${end.toISOString()}`;
+        return `&filters[$and][0][$and][1][startDate][$lte]=${start.toISOString()}&filters[$and][0][$and][1][endDate][$gte]=${end.toISOString()}`;
       }
 
-      return `&filters[$and][0][$or][0][$and][0][startDate][$gte]=${start.toISOString()}
-      &filters[$and][0][$or][0][$and][1][startDate][$lte]=${end.toISOString()}
-      &filters[$and][0][$or][1][$and][0][endDate][$gte]=${start.toISOString()}
-      &filters[$and][0][$or][1][$and][1][endDate][$lte]=${end.toISOString()}
-      &filters[$and][0][$or][2][$and][0][startDate][$lte]=${start.toISOString()}
-      &filters[$and][0][$or][2][$and][1][endDate][$gte]=${end.toISOString()}`;
+      const response = `&filters[$and][0][$or][0][$and][0][startDate][$gte]=${start.toISOString()}&filters[$and][0][$or][0][$and][1][startDate][$lte]=${end.toISOString()}&filters[$and][0][$or][1][$and][0][endDate][$gte]=${start.toISOString()}&filters[$and][0][$or][1][$and][1][endDate][$lte]=${end.toISOString()}&filters[$and][0][$or][2][$and][0][startDate][$lte]=${start.toISOString()}&filters[$and][0][$or][2][$and][1][endDate][$gte]=${end.toISOString()}`;
+
+      return response;
+    },
+    buildCategoryFilter(categorName: string): string {
+      return `&filters[categories][Name][$eq]=${categorName}`;
     },
     dispatchFilterUpdate(filters: string) {
       this.$store.dispatch("events/updateFilters", {
@@ -178,6 +185,8 @@ export default defineComponent({
         this.$store.state.pagination.pagination
       );
       this.eventPage = (await fetchEventsPage()) as EventView;
+
+      await this.$store.dispatch("categories/fetchCategories");
     } catch (error) {
       this.error = error as any;
     } finally {
