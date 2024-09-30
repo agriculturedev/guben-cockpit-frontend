@@ -181,7 +181,6 @@ export default defineComponent({
     },
   },
   async mounted() {
-    console.log(this.filters);
     try {
       await this.$store.dispatch(
         "events/fetchEvents",

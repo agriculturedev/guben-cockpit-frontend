@@ -63,7 +63,7 @@ export async function fetchEvents(
 ): Promise<PagedResult<Event>> {
   try {
     const response = await fetch(
-      `${BASE_API_URL}/events?populate=categories,target_groups${filters}&pagination[page]=${pagination.page}&pagination[pageSize]=${pagination.pageSize}`
+      `${BASE_API_URL}/events?populate=categories${filters}&pagination[page]=${pagination.page}&pagination[pageSize]=${pagination.pageSize}`
     );
     if (!response.ok) {
       throw new Error("Network response was not ok");
@@ -81,7 +81,8 @@ export async function fetchEventsPage() {
     if (!response.ok) {
       throw new Error("Network response was not ok");
     }
-    return (await response.json()).data;
+    const jsonReponse = await response.json();
+    return jsonReponse.data;
   } catch (error) {
     console.error("Error fetching event view:", error);
     throw error; // re-throwing the error is important for the component to handle it

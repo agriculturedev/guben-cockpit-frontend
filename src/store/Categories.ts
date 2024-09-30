@@ -41,8 +41,8 @@ const categoriesModule: Module<CategoriesState, unknown> = {
   },
   actions: {
     async fetchCategories({ commit }): Promise<void> {
-      const events = await fetchCategories();
-      commit("setCategories", events.data);
+      const categories = await fetchCategories();
+      commit("setCategories", categories.data);
     },
   },
 };
