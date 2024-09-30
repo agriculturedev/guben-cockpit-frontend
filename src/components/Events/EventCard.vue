@@ -1,3 +1,4 @@
+/* eslint-disable */
 <template>
   <div class="event">
     <div class="event-content">
@@ -91,6 +92,9 @@ export default defineComponent({
     endDate(): string {
       return new Date(this.event.attributes.startDate).formatDateTime(false);
     },
+  },
+  mounted() {
+    console.log(this.event);
   },
 });
 </script>
