@@ -46,14 +46,14 @@
             v-bind:key="index"
             :href="item.link"
             target="_black"
-            v-for="(item, index) in event.attributes.urls.filter(
+            v-for="(item, index) in event.attributes.urls?.filter(
               (link) => link.link !== '' && link.description !== ''
             )"
             >{{ item.description }}
             <span
               v-if="
                 index <
-                event.attributes.urls.filter(
+                event.attributes.urls?.filter(
                   (link) => link.link !== '' && link.description !== ''
                 ).length -
                   1
@@ -92,9 +92,6 @@ export default defineComponent({
     endDate(): string {
       return new Date(this.event.attributes.startDate).formatDateTime(false);
     },
-  },
-  mounted() {
-    console.log(this.event);
   },
 });
 </script>

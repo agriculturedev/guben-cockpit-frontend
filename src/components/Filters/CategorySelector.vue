@@ -2,6 +2,7 @@
   <Selector
     :attribute="dateAttribute"
     @update="(n: string) => updateFilter(attribute.id.toString(), n)"
+    :right="true"
   >
   </Selector>
 </template>
@@ -38,8 +39,6 @@ export default defineComponent({
   },
   methods: {
     updateFilter(id: string, value: string) {
-      console.log(value);
-
       this.$emit("update", value);
     },
   },

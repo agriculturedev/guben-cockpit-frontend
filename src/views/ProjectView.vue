@@ -96,7 +96,7 @@ export default defineComponent({
     try {
       await this.$store.dispatch(
         "projects/fetchProjects",
-        this.$store.state.projects.pagination
+        this.$store.state.projects.pagination.pagination
       );
       this.projectPage = (await fetchProjectsPage()) as ProjectView;
     } catch (error) {
@@ -106,7 +106,7 @@ export default defineComponent({
     }
   },
   watch: {
-    "$store.state.projects.pagination": {
+    "$store.state.projects.pagination.pagination": {
       async handler(newPagination, oldPagination) {
         if (JSON.stringify(newPagination) !== JSON.stringify(oldPagination)) {
           await this.$store.dispatch("projects/fetchProjects", newPagination);

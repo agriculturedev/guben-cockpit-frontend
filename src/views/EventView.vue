@@ -118,7 +118,7 @@ export default defineComponent({
       this.filterTimeout = setTimeout(() => {
         const filters = this.buildFilterQuery(filter);
         this.dispatchFilterUpdate(filters);
-      }, 1000);
+      }, 300);
     },
     buildFilterQuery(filter: any): string {
       let filters = "";
@@ -165,8 +165,6 @@ export default defineComponent({
       }
 
       const response = `&filters[$and][0][$or][0][$and][0][startDate][$gte]=${start.toISOString()}&filters[$and][0][$or][0][$and][1][startDate][$lte]=${end.toISOString()}&filters[$and][0][$or][1][$and][0][endDate][$gte]=${start.toISOString()}&filters[$and][0][$or][1][$and][1][endDate][$lte]=${end.toISOString()}&filters[$and][0][$or][2][$and][0][startDate][$lte]=${start.toISOString()}&filters[$and][0][$or][2][$and][1][endDate][$gte]=${end.toISOString()}`;
-
-      console.log(response);
 
       return response;
     },
