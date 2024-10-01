@@ -32,7 +32,7 @@
         </template>
         <template #info>
           <div class="cardWrapper">
-            <BarChartEinwohner v-if="scope.activeTab === 0" />
+            <!--            <BarChartEinwohner v-if="scope.activeTab === 0" />-->
             <InformationComponent :cards="tab?.attributes?.cards" />
           </div>
         </template>
@@ -47,12 +47,12 @@ import TabsComponent from "@/components/Tabs/TabsComponent.vue";
 import TabComponent from "@/components/Tabs/TabComponent.vue";
 import MapComponent from "@/components/MapComponent.vue";
 import InformationComponent from "@/components/Home/InformationComponent.vue";
-import BarChartEinwohner from "@/components/Charts/BarChartEinwohner.vue";
+// import BarChartEinwohner from "@/components/Charts/BarChartEinwohner.vue";
 
 export default defineComponent({
   name: "TabPanel",
   components: {
-    BarChartEinwohner,
+    // BarChartEinwohner,
     InformationComponent,
     MapComponent,
     TabComponent,
